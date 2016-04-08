@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    TEI-Authorizer configuration schema
+    @author: Adam Retter
+    @version: 1.0
+    7 April 2016
+-->
+<xs:schema targetNamespace="http://humanistika.org/ns/tei-authorizer" version="1.0"
+    elementFormDefault="qualified" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:ta="http://humanistika.org/ns/tei-authorizer"
+    xmlns:h="http://www.w3.org/1999/xhtml">
+  <xs:annotation>
+    <xs:documentation>XML Schema for configuration of the TEI-Authorizer.</xs:documentation>
+  </xs:annotation>
+  <xs:element name="config">
+    <xs:annotation>
+      <xs:documentation>Configuration details for the TEI-Authorizer.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ta:server" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Optional default server configuration to be used. Can be overriden on a per-autoComplete basis.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="ta:namespaceBindings" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Optional default namespace bindings to use globally when XPaths used in the configuration are evaluated.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="ta:autoComplete" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="autoComplete">
+    <xs:annotation>
+      <xs:documentation>An autoComplete defines the configuration for suggesting auto-complete values for a particular XPath context and optional dependency.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ta:namespaceBindings" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Optional namespace bindings to use when XPaths used in this autoComplete are evaluated. Overrides any default global namespace bindings with the same prefix.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="ta:context"/>
+        <xs:element ref="ta:attribute"/>
+        <xs:element ref="ta:dependent" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>An optional dependency for the context.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="ta:selection"/>
+        <xs:element ref="ta:request"/>
+        <xs:element ref="ta:response" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Optional configuration of steps to perform on the response.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="ta:upload" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Optional configuration for uploading a new suggestion to the server.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="context" type="ta:xpathPath">
+    <xs:annotation>
+      <xs:documentation>An XPath which indicates the element for which auto-complete is to be performed.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="attribute" type="ta:attributeName">
+    <xs:annotation>
+      <xs:documentation>The name of an attribute on the context element which triggers auto-complete.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="dependent">
+    <xs:annotation>
+      <xs:documentation>Optional. An attribute which we have a dependency on being non-empty</xs:documentation> 
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="ta:attributeName">
+          <xs:attribute name="default" use="optional" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>An optional default value to be used for the dependency if the attribute value is empty</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="selection" type="ta:xpathRelativePath">
+    <xs:annotation>
+      <xs:documentation>The XPath (relative to the context) to use for the selection. e.g. text()</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="request">
+    <xs:annotation>
+      <xs:documentation>Configuration for making a HTTP/HTTPS request to a server</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ta:server" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Optional server configuration, overrides the default server configuration.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="ta:url"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="url" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>The URL to use for the request to the server. The following templates can be used in the URL:
+        <h:ul>
+          <h:li><h:b>$username</h:b> The <h:i>username</h:i> from the <h:i>server</h:i> config (if present).</h:li>
+          <h:li><h:b>$baseUrl</h:b> The <h:i>baseUrl</h:i> from the <h:i>server</h:i> config.</h:li>
+          <h:li><h:b>$selection</h:b> The effective string value indicated by the evaluationg the <i>selection</i> XPath.</h:li>
+          <h:li><h:b>$dependent</h:b> The effective string value of the <h:i>dependent</h:i> attribute.</h:li>
+        </h:ul>
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ta:transformation" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="transformation" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>The path to an XSLT transformation to execute. Relative file paths are assumed to be relative to the configuration file.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="upload">
+    <xs:annotation>
+      <xs:documentation>Configuration for making a HTTP/HTTPS upload to a server</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ta:server" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Optional server configuration, overrides the default server configuration.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="url" type="ta:uploadUrl"/>
+        <xs:element ref="ta:transformation" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>A transformation to apply to the body of the request before it is sent to the server</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="method" default="POST" type="ta:uploadMethod">
+        <xs:annotation>
+          <xs:documentation>The HTTP method to use for the upload, if unspecified, defaults to POST.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="body" default="XML" type="ta:uploadBody">
+        <xs:annotation>
+          <xs:documentation>The type of the HTTP body to send in the upload, if unspecified, defaults to XML.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="encoding" type="ta:uploadEncoding">
+        <xs:annotation>
+          <xs:documentation>The type of encoding to apply to the HTTP body sent in the upload</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="uploadUrl">
+    <xs:annotation>
+      <xs:documentation>The URL to use for uploading the suggestion to the server. The following templates can be used in the URL:
+        <h:ul>
+          <h:li><h:b>$username</h:b> The <h:i>username</h:i> from the <h:i>server</h:i> config (if present).</h:li>
+          <h:li><h:b>$baseUrl</h:b> The <h:i>baseUrl</h:i> from the <h:i>server</h:i> config.</h:li>
+          <h:li><h:b>$suggestion</h:b> The new suggestion entered by the user.</h:li>
+          <h:li><h:b>$description</h:b> The description of the new suggestion entered by the user.</h:li>
+        </h:ul>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="uploadMethod">
+    <xs:annotation>
+      <xs:documentation>HTTP Methods that may be used for uploads.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="POST"/>
+      <xs:enumeration value="PUT"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="uploadBody">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="XML">
+        <xs:annotation>
+          <xs:documentation>Send an XML body in the upload</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="JSON">
+        <xs:annotation>
+          <xs:documentation>Send a JSON body in the upload</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FORM">
+        <xs:annotation>
+          <xs:documentation>Send a Form data body in the upload</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="None">
+        <xs:annotation>
+          <xs:documentation>Do not send any body in the upload</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="uploadEncoding">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="GZIP">
+        <xs:annotation>
+          <xs:documentation>Apply GZip encoding to the upload body</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="server">
+    <xs:annotation>
+      <xs:documentation>Base configuration for making a HTTP/HTTPS request to a server.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ta:authentication" minOccurs="0"/>
+        <xs:element ref="ta:baseUrl"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="authentication">
+    <xs:annotation>
+      <xs:documentation>The credentials for authenticating with a server.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ta:username"/>
+        <xs:element ref="ta:password"/>
+      </xs:sequence>
+      <xs:attribute name="type" type="ta:authenticationType" use="required">
+        <xs:annotation>
+          <xs:documentation>The type of authentication to use when communicating with the server.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="authenticationType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Preemptive-Basic">
+        <xs:annotation>
+          <xs:documentation>The TEI Authorizer will pre-emptively send credentials details using the HTTP Basic authentication scheme.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Basic">
+        <xs:annotation>
+          <xs:documentation>The TEI Authorizer will not pre-emptively send authentication credentials, instead it will send a request without credentials, the server should reply HTTP 401 asking for authentication using the Basic authentication scheme.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Digest">
+        <xs:annotation>
+          <xs:documentation>The TEI Authorizer will not pre-emptively send authentication credentials, instead it will send a request without credentials, the server should reply HTTP 401 asking for authentication using the Digest authentication scheme.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Basic/Digest">
+        <xs:annotation>
+          <xs:documentation>The TEI Authorizer will not pre-emptively send authentication credentials, instead it will send a request without credentials, the server should reply HTTP 401 asking for authentication and indicating that the TEI Authorizer use either the Basic or Digest authentication scheme.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="username" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>A username used for authentication</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="password" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>A password used for authentication</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="baseUrl" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>The base URL of a URL understood by the server. Is combined with <h:i>autoComplete</h:i>'s <h:i>url</h:i> to form a complete URL. e.g. http://localhost:8080/srv/my-service</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="namespaceBindings">
+    <xs:annotation>
+      <xs:documentation>Namespace bindings to use when evaluating an XPath</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="binding" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:attribute name="prefix" type="xs:NCName">
+              <xs:annotation>
+                <xs:documentation>The prefix used in the XPath</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="namespace" type="xs:anyURI">
+              <xs:annotation>
+                <xs:documentation>The namespace to refer to by the <h:i>prefix</h:i></xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="xpathPath">
+    <xs:annotation>
+      <xs:documentation>An absolute XPath that must start with a '/'</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="/.+"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="xpathRelativePath">
+    <xs:annotation>
+      <xs:documentation>A relative XPath that must not start with a '/' or '//'</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[^/]{1,2}.+"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="attributeName">
+    <xs:annotation>
+      <xs:documentation>The QName of an attribute prefixed by '@'</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="@.+"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

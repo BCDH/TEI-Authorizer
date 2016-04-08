@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    TEI-Authorizer suggestion schema
+    @author: Adam Retter
+    @version: 1.0
+    26 January 2016
+-->
+<xs:schema targetNamespace="http://humanistika.org/ns/tei-authorizer" version="1.0"
+    elementFormDefault="qualified" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:ta="http://humanistika.org/ns/tei-authorizer"
+    xmlns:h="http://www.w3.org/1999/xhtml">
+    <xs:annotation>
+        <xs:documentation>XML Schema for an auto-complete suggestion sent from the TEI-Authorizer to a remote server.</xs:documentation>
+    </xs:annotation>
+    <xs:element name="suggestion">
+        <xs:annotation>
+            <xs:documentation>A suggestion to provide to the user for auto-complete</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="ta:value"/>
+                <xs:element ref="ta:description" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="value" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>The value to use for the suggestion</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="description" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>A description of the value used for the suggestion</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+</xs:schema>
