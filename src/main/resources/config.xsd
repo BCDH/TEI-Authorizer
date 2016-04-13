@@ -148,9 +148,9 @@
           </xs:annotation>
         </xs:element>
         <xs:element name="url" type="ta:uploadUrl"/>
-        <xs:element ref="ta:transformation" minOccurs="0">
+        <xs:element ref="ta:body" minOccurs="0">
           <xs:annotation>
-            <xs:documentation>A transformation to apply to the body of the request before it is sent to the server</xs:documentation>
+            <xs:documentation>Optional body to send as part of the upload request</xs:documentation>
           </xs:annotation>
         </xs:element>
       </xs:sequence>
@@ -159,7 +159,18 @@
           <xs:documentation>The HTTP method to use for the upload, if unspecified, defaults to POST.</xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="body" default="XML" type="ta:uploadBody">
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="body">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ta:transformation" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>A transformation to apply to the body of the request before it is sent to the server</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="type" default="XML" type="ta:uploadBody">
         <xs:annotation>
           <xs:documentation>The type of the HTTP body to send in the upload, if unspecified, defaults to XML.</xs:documentation>
         </xs:annotation>
@@ -167,6 +178,16 @@
       <xs:attribute name="encoding" type="ta:uploadEncoding">
         <xs:annotation>
           <xs:documentation>The type of encoding to apply to the HTTP body sent in the upload</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="includeSelection" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Indicates whether the selection should also be sent as part of the body</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="includeDependent" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Indicates whether the the dependent (if configured) should also be sent as part of the body</xs:documentation>
         </xs:annotation>
       </xs:attribute>
     </xs:complexType>
@@ -179,6 +200,8 @@
           <h:li><h:b>$baseUrl</h:b> The <h:i>baseUrl</h:i> from the <h:i>server</h:i> config.</h:li>
           <h:li><h:b>$suggestion</h:b> The new suggestion entered by the user.</h:li>
           <h:li><h:b>$description</h:b> The description of the new suggestion entered by the user.</h:li>
+          <h:li><h:b>$selection</h:b> The effective string value indicated by the evaluationg the <i>selection</i> XPath.</h:li>
+          <h:li><h:b>$dependent</h:b> The effective string value of the <h:i>dependent</h:i> attribute (if present).</h:li>
         </h:ul>
       </xs:documentation>
     </xs:annotation>
@@ -208,11 +231,6 @@
       <xs:enumeration value="FORM">
         <xs:annotation>
           <xs:documentation>Send a Form data body in the upload</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="None">
-        <xs:annotation>
-          <xs:documentation>Do not send any body in the upload</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
     </xs:restriction>

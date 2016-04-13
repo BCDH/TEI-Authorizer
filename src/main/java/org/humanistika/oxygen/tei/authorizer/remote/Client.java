@@ -38,10 +38,12 @@ public interface Client extends org.humanistika.oxygen.tei.completer.remote.Clie
      *
      * @param uploadInfo The base details for the upload
      * @param suggestion The suggestion
-     * @param description The description of the suggestion
+     * @param description The description of the suggestion or null
+     * @param selectionValue The value of the selection or null
+     * @param dependentValue The value of the dependent or null
      *
      * @return true if the suggestion was accepted by the server
      */
-    boolean uploadSuggestion(final UploadInfo uploadInfo, final String suggestion, @Nullable final String description);
+    boolean uploadSuggestion(final UploadInfo uploadInfo, final String suggestion, @Nullable final String description, @Nullable final String selectionValue, @Nullable final String dependentValue);
 }
 

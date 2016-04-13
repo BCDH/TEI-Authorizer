@@ -24,27 +24,29 @@ import org.jetbrains.annotations.Nullable;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Path;
 import java.util.Map;
 
 /**
- * Configuration details for making a request to a server for getting
- * auto-complete options
+ * Configuration details for uploading a suggestion to a server
  *
  * @author Adam Retter, Evolved Binary Ltd <adam.retter@googlemail.com>
  * @version 1.0
- * @serial 20160126
+ * @serial 20160405
  */
 public class UploadInfo {
     public enum UrlVar {
         USERNAME,
-        PASSWORD,
-        BASE_URL,
         SUGGESTION,
-        DESCRIPTION;
+        DESCRIPTION,
+        SELECTION_VALUE,
+        DEPENDENT_VALUE;
 
         public String var() {
-            return "$" + underscoreToCamel(name().toLowerCase());
+            return "$" + camelName();
+        }
+
+        public String camelName() {
+            return underscoreToCamel(name().toLowerCase());
         }
 
         private String underscoreToCamel(String str) {
@@ -61,32 +63,16 @@ public class UploadInfo {
         PUT
     }
 
-    public enum BodyType {
-        XML,
-        JSON,
-        FORM,
-        NONE
-    }
-
-    public enum Encoding {
-        GZIP,
-        NONE
-    }
-
     private final Method method;
-    private final BodyType bodyType;
-    private final Encoding encoding;
     private final String url;
     @Nullable private final Authentication authentication;
-    @Nullable private final Path transformation;
+    @Nullable private final BodyInfo bodyInfo;
 
-    public UploadInfo(final Method method, final BodyType bodyType, final Encoding encoding, final String url, final Authentication authentication, final Path transformation) {
+    public UploadInfo(final Method method, final String url, final Authentication authentication, final BodyInfo bodyInfo) {
         this.method = method;
-        this.bodyType = bodyType;
-        this.encoding = encoding;
         this.url = url;
         this.authentication = authentication;
-        this.transformation = transformation;
+        this.bodyInfo = bodyInfo;
     }
 
     public URL getUrl(final Map<UrlVar, String> substitutions) throws MalformedURLException {
@@ -103,21 +89,13 @@ public class UploadInfo {
         return method;
     }
 
-    public BodyType getBodyType() {
-        return bodyType;
-    }
-
-    public Encoding getEncoding() {
-        return encoding;
-    }
-
     @Nullable
     public Authentication getAuthentication() {
         return authentication;
     }
 
     @Nullable
-    public Path getTransformation() {
-        return transformation;
+    public BodyInfo getBodyInfo() {
+        return bodyInfo;
     }
 }

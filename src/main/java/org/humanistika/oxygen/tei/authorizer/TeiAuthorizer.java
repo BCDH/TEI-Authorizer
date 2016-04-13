@@ -84,8 +84,10 @@ public class TeiAuthorizer extends TeiCompleter {
 
                 //only show the "Add New..." if there is an auto-complete with upload config for the
                 if(uploadInfo != null) {
+                    final AutoCompleteContext autoCompleteContext = autoCompleteSuggestions.getAutoCompleteContext();
+
                     //Add an "Add New..." option to the list
-                    list.add(new AddNewSuggestionCIValue(uploadInfo));
+                    list.add(new AddNewSuggestionCIValue(uploadInfo, autoCompleteContext.getSelectedValue(), autoCompleteContext.getDependentValue()));
                 }
             }
         }
@@ -119,10 +121,14 @@ public class TeiAuthorizer extends TeiCompleter {
         private final UploadInfo uploadInfo;
         private String suggestion = null;
         private String description = null;
+        @Nullable private final String selectionValue;
+        @Nullable private final String dependentValue;
 
-        public AddNewSuggestionCIValue(final UploadInfo uploadInfo) {
+        public AddNewSuggestionCIValue(final UploadInfo uploadInfo, final String selectionValue, final String dependentValue) {
             super("Add New...", "Add a new suggestion");
             this.uploadInfo = uploadInfo;
+            this.selectionValue = selectionValue;
+            this.dependentValue = dependentValue;
         }
 
         @Override
@@ -149,7 +155,7 @@ public class TeiAuthorizer extends TeiCompleter {
         private boolean uploadSuggestion(final SuggestedAutocomplete suggestedAutocomplete) {
             final Authentication.AuthenticationType authenticationType = uploadInfo.getAuthentication() == null ? null : uploadInfo.getAuthentication().getAuthenticationType();
             final Client client = (Client)getClient(authenticationType);
-            return client.uploadSuggestion(uploadInfo, suggestedAutocomplete.getSuggestion(), suggestedAutocomplete.getDescription());
+            return client.uploadSuggestion(uploadInfo, suggestedAutocomplete.getSuggestion(), suggestedAutocomplete.getDescription(), selectionValue, dependentValue);
         }
 
         /**

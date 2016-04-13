@@ -22,6 +22,7 @@ package org.humanistika.oxygen.tei.authorizer.remote.impl;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.humanistika.ns.tei_authorizer.Suggestion;
+import org.humanistika.oxygen.tei.authorizer.configuration.beans.BodyInfo;
 import org.humanistika.oxygen.tei.authorizer.configuration.beans.UploadInfo;
 import org.humanistika.oxygen.tei.authorizer.remote.Client;
 import org.humanistika.oxygen.tei.completer.remote.ClientFactory;
@@ -30,6 +31,7 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.validation.constraints.Null;
 import javax.ws.rs.core.*;
 import javax.xml.bind.JAXBContext;
 import javax.ws.rs.client.Entity;
@@ -70,10 +72,9 @@ public class JerseyClient extends org.humanistika.oxygen.tei.completer.remote.im
     }
 
     @Override
-    public boolean uploadSuggestion(final UploadInfo uploadInfo, final String suggestion, @Nullable final String description) {
+    public boolean uploadSuggestion(final UploadInfo uploadInfo, final String suggestion, @Nullable final String description, @Nullable final String selectionValue, @Nullable final String dependentValue) {
         try {
-
-            final URL url = getUrl(uploadInfo, suggestion, description);
+            final URL url = getUrl(uploadInfo, suggestion, description, selectionValue, dependentValue);
 
             Invocation.Builder requestBuilder = client
                     .target(url.toURI())
@@ -86,47 +87,55 @@ public class JerseyClient extends org.humanistika.oxygen.tei.completer.remote.im
             }
 
             //prepare the body for the request
+            final BodyInfo bodyInfo = uploadInfo.getBodyInfo();
             final Entity<?> entity;
-            switch(uploadInfo.getBodyType()) {
-                case XML:
-                    final Suggestion xml = getSuggestion(suggestion, description);
-                    final Path xmlTransformation = uploadInfo.getTransformation();
-                    final Variant xmlVariant = new Variant(MediaType.APPLICATION_XML_TYPE, (String)null, uploadInfo.getEncoding() == UploadInfo.Encoding.GZIP ? "gzip" : null);
-                    if(xmlTransformation == null) {
-                        entity = Entity.entity(xml, xmlVariant);
-                    } else {
-                        LOGGER.debug("Transforming XML upload to: {} using: {}", url, xmlTransformation);
-                        entity = Entity.entity(transformXmlUpload(xml, xmlTransformation), xmlVariant);
-                    }
-                    break;
+            if(bodyInfo == null) {
+                entity = null;
+            } else {
+                switch (bodyInfo.getBodyType()) {
+                    case XML:
+                        final Suggestion xml = getSuggestion(suggestion, description, bodyInfo.isIncludeSelection() ? selectionValue : null, bodyInfo.isIncludeDependent() ? dependentValue : null);
+                        final Path xmlTransformation = bodyInfo.getTransformation();
+                        final Variant xmlVariant = new Variant(MediaType.APPLICATION_XML_TYPE, (String) null, bodyInfo.getEncoding() == BodyInfo.Encoding.GZIP ? "gzip" : null);
+                        if (xmlTransformation == null) {
+                            entity = Entity.entity(xml, xmlVariant);
+                        } else {
+                            LOGGER.debug("Transforming XML upload to: {} using: {}", url, xmlTransformation);
+                            entity = Entity.entity(transformXmlUpload(xml, xmlTransformation), xmlVariant);
+                        }
+                        break;
 
-                case JSON:
-                    final Suggestion json = getSuggestion(suggestion, description);
-                    final Path jsonTransformation = uploadInfo.getTransformation();
-                    final Variant jsonVariant = new Variant(MediaType.APPLICATION_JSON_TYPE, (String)null, uploadInfo.getEncoding() == UploadInfo.Encoding.GZIP ? "gzip" : null);
-                    if(jsonTransformation == null) {
-                        entity = Entity.entity(json, jsonVariant);
-                    } else {
-                        LOGGER.debug("Transforming JSON upload to: {} using: {}", url, jsonTransformation);
-                        entity = Entity.entity(transformJsonUpload(json, jsonTransformation), jsonVariant);
-                    }
-                    break;
+                    case JSON:
+                        final Suggestion json = getSuggestion(suggestion, description, bodyInfo.isIncludeSelection() ? selectionValue : null, bodyInfo.isIncludeDependent() ? dependentValue : null);
+                        final Path jsonTransformation = bodyInfo.getTransformation();
+                        final Variant jsonVariant = new Variant(MediaType.APPLICATION_JSON_TYPE, (String) null, bodyInfo.getEncoding() == BodyInfo.Encoding.GZIP ? "gzip" : null);
+                        if (jsonTransformation == null) {
+                            entity = Entity.entity(json, jsonVariant);
+                        } else {
+                            LOGGER.debug("Transforming JSON upload to: {} using: {}", url, jsonTransformation);
+                            entity = Entity.entity(transformJsonUpload(json, jsonTransformation), jsonVariant);
+                        }
+                        break;
 
-                case FORM:
-                    final MultivaluedMap<String, String> formData = new MultivaluedHashMap<>();
-                    formData.putSingle("suggestion", suggestion);
-                    if(description != null) {
-                        formData.putSingle("description", description);
-                    }
-                    final Variant formVariant = new Variant(MediaType.APPLICATION_FORM_URLENCODED_TYPE, (String)null, uploadInfo.getEncoding() == UploadInfo.Encoding.GZIP ? "gzip" : null);
-                    entity = Entity.entity(new Form(formData), formVariant);
-                    break;
+                    case FORM:
+                        final MultivaluedMap<String, String> formData = new MultivaluedHashMap<>();
+                        formData.putSingle("suggestion", suggestion);
+                        if (description != null) {
+                            formData.putSingle("description", description);
+                        }
+                        if(bodyInfo.isIncludeSelection() && selectionValue != null) {
+                            formData.putSingle("selectionValue", selectionValue);
+                        }
+                        if(bodyInfo.isIncludeDependent() && dependentValue != null) {
+                            formData.putSingle("dependentValue", dependentValue);
+                        }
+                        final Variant formVariant = new Variant(MediaType.APPLICATION_FORM_URLENCODED_TYPE, (String) null, bodyInfo.getEncoding() == BodyInfo.Encoding.GZIP ? "gzip" : null);
+                        entity = Entity.entity(new Form(formData), formVariant);
+                        break;
 
-                case NONE:
-                default:
-                    entity = null;
-                    break;
-
+                    default:
+                        throw new IllegalStateException("Unknown Body Type: " + bodyInfo.getBodyType());
+                }
             }
 
             final Response response;
@@ -154,10 +163,12 @@ public class JerseyClient extends org.humanistika.oxygen.tei.completer.remote.im
         }
     }
 
-    private Suggestion getSuggestion(final String value, @Nullable final String description) {
+    private Suggestion getSuggestion(final String value, @Nullable final String description, @Nullable final String selectionValue, @Nullable final String dependentValue) {
         final Suggestion suggestion = new Suggestion();
         suggestion.setValue(value);
         suggestion.setDescription(description);
+        suggestion.setSelectionValue(selectionValue);
+        suggestion.setDependentValue(dependentValue);
         return suggestion;
     }
 
@@ -169,14 +180,29 @@ public class JerseyClient extends org.humanistika.oxygen.tei.completer.remote.im
      * @param uploadInfo The base request info
      * @param suggestion The suggestion
      * @param description The description or null
+     * @param selectionValue the value of the selection or null
+     * @param dependentValue the value of the dependent or null
      *
      * @return The URL for connecting to the server
      */
-    protected URL getUrl(final UploadInfo uploadInfo, final String suggestion, final @Nullable String description) throws MalformedURLException {
+    protected URL getUrl(final UploadInfo uploadInfo, final String suggestion, @Nullable final String description, @Nullable final String selectionValue, @Nullable final String dependentValue) throws MalformedURLException {
         final Map<UploadInfo.UrlVar, String> substitutions = new HashMap<>();
+        if(uploadInfo.getAuthentication() != null) {
+            substitutions.put(UploadInfo.UrlVar.USERNAME, uploadInfo.getAuthentication().getUsername());
+        }
+
         substitutions.put(UploadInfo.UrlVar.SUGGESTION, suggestion);
+
         if(description != null) {
             substitutions.put(UploadInfo.UrlVar.DESCRIPTION, description);
+        }
+
+        if(selectionValue != null) {
+            substitutions.put(UploadInfo.UrlVar.SELECTION_VALUE, selectionValue);
+        }
+
+        if(dependentValue != null) {
+            substitutions.put(UploadInfo.UrlVar.DEPENDENT_VALUE, dependentValue);
         }
 
         return uploadInfo.getUrl(substitutions);

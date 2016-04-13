@@ -21,6 +21,8 @@
             <xs:sequence>
                 <xs:element ref="ta:value"/>
                 <xs:element ref="ta:description" minOccurs="0"/>
+                <xs:element ref="ta:selectionValue" minOccurs="0"/>
+                <xs:element ref="ta:dependentValue" minOccurs="0"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -32,6 +34,16 @@
     <xs:element name="description" type="xs:string">
         <xs:annotation>
             <xs:documentation>A description of the value used for the suggestion</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="selectionValue" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>The selected value</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="dependentValue" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>The dependent value</xs:documentation>
         </xs:annotation>
     </xs:element>
 </xs:schema>

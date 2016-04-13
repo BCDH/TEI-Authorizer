@@ -22,6 +22,7 @@ package org.humanistika.oxygen.tei.authorizer.configuration.impl;
 import org.humanistika.ns.tei_authorizer.*;
 import org.humanistika.oxygen.tei.authorizer.configuration.beans.AutoComplete;
 import org.humanistika.oxygen.tei.authorizer.configuration.Configuration;
+import org.humanistika.oxygen.tei.authorizer.configuration.beans.BodyInfo;
 import org.humanistika.oxygen.tei.authorizer.configuration.beans.UploadInfo;
 import org.humanistika.oxygen.tei.completer.configuration.beans.Authentication;
 import org.humanistika.oxygen.tei.completer.configuration.beans.Dependent;
@@ -116,14 +117,28 @@ public class XmlConfiguration extends org.humanistika.oxygen.tei.completer.confi
             if(autoComplete.getUpload() == null) {
                 uploadInfo = null;
             } else {
-                final Authentication uploadAuthentication = resolveAuthentication(config.getServer(), autoComplete.getUpload().getServer());
+                final Upload upload = autoComplete.getUpload();
+
+                final Authentication uploadAuthentication = resolveAuthentication(config.getServer(),upload.getServer());
+
+                final BodyInfo bodyInfo;
+                if(autoComplete.getUpload().getBody() == null) {
+                    bodyInfo = null;
+                } else {
+                    bodyInfo = new BodyInfo(
+                            asBodyInfoBodyType(upload.getBody().getType()),
+                            asBodyInfoEncoding(upload.getBody().getEncoding()),
+                            upload.getBody().isIncludeSelection(),
+                            upload.getBody().isIncludeDependent(),
+                            upload.getBody().getTransformation() == null ? null : configFile.resolveSibling(upload.getBody().getTransformation())
+                    );
+                }
+
                 uploadInfo = new UploadInfo(
-                        asUploadInfoMethod(autoComplete.getUpload().getMethod()),
-                        asUploadInfoBodyType(autoComplete.getUpload().getBody()),
-                        asUploadInfoEncoding(autoComplete.getUpload().getEncoding()),
-                        expandUrl(config.getServer(), autoComplete.getUpload(), i+1, uploadAuthentication),
+                        asUploadInfoMethod(upload.getMethod()),
+                        expandUrl(config.getServer(), upload, i+1, uploadAuthentication),
                         uploadAuthentication,
-                        autoComplete.getUpload().getTransformation() == null ? null : configFile.resolveSibling(autoComplete.getUpload().getTransformation())
+                        bodyInfo
                 );
             }
 
@@ -250,27 +265,27 @@ public class XmlConfiguration extends org.humanistika.oxygen.tei.completer.confi
         }
     }
 
-    private UploadInfo.BodyType asUploadInfoBodyType(final UploadBody uploadBody) {
+    private BodyInfo.BodyType asBodyInfoBodyType(final UploadBody uploadBody) {
         switch(uploadBody) {
             case XML:
-                return UploadInfo.BodyType.XML;
+                return BodyInfo.BodyType.XML;
             case JSON:
-                return UploadInfo.BodyType.JSON;
+                return BodyInfo.BodyType.JSON;
             case FORM:
-                return UploadInfo.BodyType.FORM;
+                return BodyInfo.BodyType.FORM;
             default:
                 throw new IllegalArgumentException("Unsupported type for UploadBody: " + uploadBody.name());
         }
     }
 
-    private UploadInfo.Encoding asUploadInfoEncoding(final UploadEncoding uploadEncoding) {
+    private BodyInfo.Encoding asBodyInfoEncoding(final UploadEncoding uploadEncoding) {
         if(uploadEncoding == null) {
-            return UploadInfo.Encoding.NONE;
+            return BodyInfo.Encoding.NONE;
         }
 
         switch(uploadEncoding) {
             case GZIP:
-                return UploadInfo.Encoding.GZIP;
+                return BodyInfo.Encoding.GZIP;
             default:
                 throw new IllegalArgumentException("Unsupported type for UploadEncoding: " + uploadEncoding.name());
         }
