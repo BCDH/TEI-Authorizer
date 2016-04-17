@@ -23,6 +23,7 @@
                 <xs:element ref="ta:description" minOccurs="0"/>
                 <xs:element ref="ta:selectionValue" minOccurs="0"/>
                 <xs:element ref="ta:dependentValue" minOccurs="0"/>
+                <xs:element ref="ta:userValues" minOccurs="0"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -45,5 +46,24 @@
         <xs:annotation>
             <xs:documentation>The dependent value</xs:documentation>
         </xs:annotation>
+    </xs:element>
+    <xs:element name="userValues">
+        <xs:annotation>
+            <xs:documentation>A series of fields completed by the user</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="ta:userValue" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="userValue">
+        <xs:annotation>
+            <xs:documentation>A field completed by the user</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="value" type="xs:string" use="required"/>
+        </xs:complexType>
     </xs:element>
 </xs:schema>

@@ -22,6 +22,8 @@ package org.humanistika.oxygen.tei.authorizer.remote.impl;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.humanistika.ns.tei_authorizer.Suggestion;
+import org.humanistika.ns.tei_authorizer.UserValue;
+import org.humanistika.oxygen.tei.authorizer.SuggestedAutocomplete;
 import org.humanistika.oxygen.tei.authorizer.configuration.beans.BodyInfo;
 import org.humanistika.oxygen.tei.authorizer.configuration.beans.UploadInfo;
 import org.humanistika.oxygen.tei.authorizer.remote.Client;
@@ -30,8 +32,8 @@ import org.humanistika.oxygen.tei.completer.response.TransformationException;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ro.sync.net.protocol.http.HttpExceptionWithDetails;
 
-import javax.validation.constraints.Null;
 import javax.ws.rs.core.*;
 import javax.xml.bind.JAXBContext;
 import javax.ws.rs.client.Entity;
@@ -47,6 +49,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -72,7 +75,7 @@ public class JerseyClient extends org.humanistika.oxygen.tei.completer.remote.im
     }
 
     @Override
-    public boolean uploadSuggestion(final UploadInfo uploadInfo, final String suggestion, @Nullable final String description, @Nullable final String selectionValue, @Nullable final String dependentValue) {
+    public SuggestionResponse uploadSuggestion(final UploadInfo uploadInfo, final String suggestion, @Nullable final String description, @Nullable final String selectionValue, @Nullable final String dependentValue, @Nullable final List<SuggestedAutocomplete.UserValue> userValues) {
         try {
             final URL url = getUrl(uploadInfo, suggestion, description, selectionValue, dependentValue);
 
@@ -80,7 +83,7 @@ public class JerseyClient extends org.humanistika.oxygen.tei.completer.remote.im
                     .target(url.toURI())
                     .request();
 
-            if(uploadInfo.getAuthentication() != null) {
+            if (uploadInfo.getAuthentication() != null) {
                 requestBuilder = requestBuilder
                         .property(HttpAuthenticationFeature.HTTP_AUTHENTICATION_USERNAME, uploadInfo.getAuthentication().getUsername())
                         .property(HttpAuthenticationFeature.HTTP_AUTHENTICATION_PASSWORD, uploadInfo.getAuthentication().getPassword());
@@ -89,12 +92,12 @@ public class JerseyClient extends org.humanistika.oxygen.tei.completer.remote.im
             //prepare the body for the request
             final BodyInfo bodyInfo = uploadInfo.getBodyInfo();
             final Entity<?> entity;
-            if(bodyInfo == null) {
+            if (bodyInfo == null) {
                 entity = null;
             } else {
                 switch (bodyInfo.getBodyType()) {
                     case XML:
-                        final Suggestion xml = getSuggestion(suggestion, description, bodyInfo.isIncludeSelection() ? selectionValue : null, bodyInfo.isIncludeDependent() ? dependentValue : null);
+                        final Suggestion xml = getSuggestion(suggestion, description, bodyInfo.isIncludeSelection() ? selectionValue : null, bodyInfo.isIncludeDependent() ? dependentValue : null, userValues);
                         final Path xmlTransformation = bodyInfo.getTransformation();
                         final Variant xmlVariant = new Variant(MediaType.APPLICATION_XML_TYPE, (String) null, bodyInfo.getEncoding() == BodyInfo.Encoding.GZIP ? "gzip" : null);
                         if (xmlTransformation == null) {
@@ -106,7 +109,7 @@ public class JerseyClient extends org.humanistika.oxygen.tei.completer.remote.im
                         break;
 
                     case JSON:
-                        final Suggestion json = getSuggestion(suggestion, description, bodyInfo.isIncludeSelection() ? selectionValue : null, bodyInfo.isIncludeDependent() ? dependentValue : null);
+                        final Suggestion json = getSuggestion(suggestion, description, bodyInfo.isIncludeSelection() ? selectionValue : null, bodyInfo.isIncludeDependent() ? dependentValue : null, userValues);
                         final Path jsonTransformation = bodyInfo.getTransformation();
                         final Variant jsonVariant = new Variant(MediaType.APPLICATION_JSON_TYPE, (String) null, bodyInfo.getEncoding() == BodyInfo.Encoding.GZIP ? "gzip" : null);
                         if (jsonTransformation == null) {
@@ -123,11 +126,16 @@ public class JerseyClient extends org.humanistika.oxygen.tei.completer.remote.im
                         if (description != null) {
                             formData.putSingle("description", description);
                         }
-                        if(bodyInfo.isIncludeSelection() && selectionValue != null) {
+                        if (bodyInfo.isIncludeSelection() && selectionValue != null) {
                             formData.putSingle("selectionValue", selectionValue);
                         }
-                        if(bodyInfo.isIncludeDependent() && dependentValue != null) {
+                        if (bodyInfo.isIncludeDependent() && dependentValue != null) {
                             formData.putSingle("dependentValue", dependentValue);
+                        }
+                        if (userValues != null) {
+                            for (final SuggestedAutocomplete.UserValue userValue : userValues) {
+                                formData.putSingle(userValue.getName(), userValue.getValue());
+                            }
                         }
                         final Variant formVariant = new Variant(MediaType.APPLICATION_FORM_URLENCODED_TYPE, (String) null, bodyInfo.getEncoding() == BodyInfo.Encoding.GZIP ? "gzip" : null);
                         entity = Entity.entity(new Form(formData), formVariant);
@@ -139,7 +147,7 @@ public class JerseyClient extends org.humanistika.oxygen.tei.completer.remote.im
             }
 
             final Response response;
-            switch(uploadInfo.getMethod()) {
+            switch (uploadInfo.getMethod()) {
                 case PUT:
                     response = requestBuilder.put(entity);
                     break;
@@ -151,24 +159,37 @@ public class JerseyClient extends org.humanistika.oxygen.tei.completer.remote.im
             }
 
             final Response.StatusType statusInfo = response.getStatusInfo();
-            if(statusInfo.getFamily() == Response.Status.Family.SUCCESSFUL) {
-                return true;
+            if (statusInfo.getFamily() == Response.Status.Family.SUCCESSFUL) {
+                return new SuggestionResponse(true, null);
             } else {
                 LOGGER.error("Unable to upload suggestion to server: {}", statusInfo.getReasonPhrase());
-                return false;
+                return new SuggestionResponse(false, statusInfo.getReasonPhrase());
             }
-        } catch(final URISyntaxException | IOException | TransformationException e) {
-            LOGGER.error(e.getMessage(), e); //TODO(AR) maybe something more visible to the user
-            return false;
+        } catch (final HttpExceptionWithDetails e) {        //TODO(AR) somehow we don't seem to be able to catch this Oxygen exception, but why is Jersey even throwing it?!?
+            LOGGER.error(e.getMessage(), e);
+            return new SuggestionResponse(false, e.getReason());
+        } catch (final URISyntaxException | IOException | TransformationException e) {
+            LOGGER.error(e.getMessage(), e);
+            return new SuggestionResponse(false, e.getMessage());
         }
     }
 
-    private Suggestion getSuggestion(final String value, @Nullable final String description, @Nullable final String selectionValue, @Nullable final String dependentValue) {
+    private Suggestion getSuggestion(final String value, @Nullable final String description, @Nullable final String selectionValue, @Nullable final String dependentValue, @Nullable final List<SuggestedAutocomplete.UserValue> userValues) {
         final Suggestion suggestion = new Suggestion();
         suggestion.setValue(value);
         suggestion.setDescription(description);
         suggestion.setSelectionValue(selectionValue);
         suggestion.setDependentValue(dependentValue);
+
+        if(userValues != null) {
+            for(final SuggestedAutocomplete.UserValue userValue : userValues) {
+                final UserValue uv = new UserValue();
+                uv.setName(userValue.getName());
+                uv.setValue(userValue.getValue());
+                suggestion.getUserValues().getUserValue().add(uv);
+            }
+        }
+
         return suggestion;
     }
 

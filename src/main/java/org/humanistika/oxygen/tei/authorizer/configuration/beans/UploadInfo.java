@@ -24,6 +24,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -65,12 +66,14 @@ public class UploadInfo {
 
     private final Method method;
     private final String url;
+    @Nullable private final List<UserFieldInfo> userFieldsInfo;
     @Nullable private final Authentication authentication;
     @Nullable private final BodyInfo bodyInfo;
 
-    public UploadInfo(final Method method, final String url, final Authentication authentication, final BodyInfo bodyInfo) {
+    public UploadInfo(final Method method, final String url, final List<UserFieldInfo> userFieldsInfo, final Authentication authentication, final BodyInfo bodyInfo) {
         this.method = method;
         this.url = url;
+        this.userFieldsInfo = userFieldsInfo;
         this.authentication = authentication;
         this.bodyInfo = bodyInfo;
     }
@@ -87,6 +90,11 @@ public class UploadInfo {
 
     public Method getMethod() {
         return method;
+    }
+
+    @Nullable
+    public List<UserFieldInfo> getUserFieldsInfo() {
+        return userFieldsInfo;
     }
 
     @Nullable

@@ -22,6 +22,7 @@ package org.humanistika.oxygen.tei.authorizer;
 import org.humanistika.oxygen.tei.authorizer.configuration.ConfigurationFactory;
 import org.humanistika.oxygen.tei.authorizer.configuration.beans.AutoComplete;
 import org.humanistika.oxygen.tei.authorizer.configuration.beans.UploadInfo;
+import org.humanistika.oxygen.tei.authorizer.gui.NewSuggestionForm;
 import org.humanistika.oxygen.tei.authorizer.remote.Client;
 import org.humanistika.oxygen.tei.authorizer.remote.impl.JerseyClientFactory;
 import org.humanistika.oxygen.tei.completer.TeiCompleter;
@@ -139,23 +140,30 @@ public class TeiAuthorizer extends TeiCompleter {
                 final SuggestedAutocomplete suggestedAutocomplete = promptUserForNewSuggestion();
 
                 if(suggestedAutocomplete != null) {
-                    //TODO(AR) upload to the server, on error alert the user, on success replace in document
-                    uploadSuggestion(suggestedAutocomplete);
-                }
 
-                //process the result from the dialog
-                final String suggestion = suggestedAutocomplete.getSuggestion();
-                this.suggestion =  (suggestion == null ? "" : suggestion);
-                this.description =  suggestedAutocomplete.getDescription();
+                    //upload to the server, on error alert the user, on success replace in document
+                    final Client.SuggestionResponse suggestionResponse = uploadSuggestion(suggestedAutocomplete);
+                    if (suggestionResponse.isSuccess()) {
+                        //process the result from the dialog
+                        final String suggestion = suggestedAutocomplete.getSuggestion();
+                        this.suggestion = (suggestion == null ? "" : suggestion);
+                        this.description = suggestedAutocomplete.getDescription();
+                    } else {
+                        final KeyboardFocusManager keyboardFocusManager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+                        final Component comp = keyboardFocusManager.getFocusOwner();
+                        final Frame frame = getParentFrame(comp);
+                        JOptionPane.showMessageDialog(frame, suggestionResponse.getMessage() != null ? suggestionResponse.getMessage() : "Unable to upload the suggestion to the server", "Error Uploading Suggestion", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
             }
 
             return suggestion;
         }
 
-        private boolean uploadSuggestion(final SuggestedAutocomplete suggestedAutocomplete) {
+        private Client.SuggestionResponse uploadSuggestion(final SuggestedAutocomplete suggestedAutocomplete) {
             final Authentication.AuthenticationType authenticationType = uploadInfo.getAuthentication() == null ? null : uploadInfo.getAuthentication().getAuthenticationType();
             final Client client = (Client)getClient(authenticationType);
-            return client.uploadSuggestion(uploadInfo, suggestedAutocomplete.getSuggestion(), suggestedAutocomplete.getDescription(), selectionValue, dependentValue);
+            return client.uploadSuggestion(uploadInfo, suggestedAutocomplete.getSuggestion(), suggestedAutocomplete.getDescription(), selectionValue, dependentValue, suggestedAutocomplete.getUserValues());
         }
 
         /**
@@ -170,7 +178,7 @@ public class TeiAuthorizer extends TeiCompleter {
             final KeyboardFocusManager keyboardFocusManager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
             final Component comp = keyboardFocusManager.getFocusOwner();
             final Frame frame = getParentFrame(comp);
-            final NewSuggestionForm newSuggestionForm = new NewSuggestionForm(frame);
+            final NewSuggestionForm newSuggestionForm = new NewSuggestionForm(frame, uploadInfo.getUserFieldsInfo());
 
             //set location of the dialog
             if(comp instanceof JTextArea) {

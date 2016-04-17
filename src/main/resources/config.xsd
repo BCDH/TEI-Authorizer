@@ -83,7 +83,7 @@
     <xs:complexType>
       <xs:simpleContent>
         <xs:extension base="ta:attributeName">
-          <xs:attribute name="default" use="optional" type="xs:string">
+          <xs:attribute name="default" type="xs:string">
             <xs:annotation>
               <xs:documentation>An optional default value to be used for the dependency if the attribute value is empty</xs:documentation>
             </xs:annotation>
@@ -147,6 +147,11 @@
             <xs:documentation>Optional server configuration, overrides the default server configuration.</xs:documentation>
           </xs:annotation>
         </xs:element>
+        <xs:element ref="ta:userFields" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Optional fields that the user must complete. These will be sent as part of the upload request</xs:documentation>
+          </xs:annotation>
+        </xs:element>
         <xs:element name="url" type="ta:uploadUrl"/>
         <xs:element ref="ta:body" minOccurs="0">
           <xs:annotation>
@@ -157,6 +162,55 @@
       <xs:attribute name="method" default="POST" type="ta:uploadMethod">
         <xs:annotation>
           <xs:documentation>The HTTP method to use for the upload, if unspecified, defaults to POST.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="userFields">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ta:userField" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="userField">
+    <xs:annotation>
+      <xs:documentation>A field that the user will be prompted to complete</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="name" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>The name of the field which will be sent in the upload</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="label" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>A label to show in the GUI beside the input box, if not specifed then a capitalised form of <h:i>name</h:i> will be used.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="multiline" type="xs:boolean" default="false">
+        <xs:annotation>
+          <xs:documentation>Controls whether the input field is displayed as a multi-line input box in the GUI.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="required" type="xs:boolean" default="false">
+        <xs:annotation>
+          <xs:documentation>Whether the user is required to enter a value for the field.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="initialValue" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>An initial value or template to display in the field in the GUI before it receives focus.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="defaultValue" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>A default value to use if the user does not complete the field.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="validateWith" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>A regular expression compatible with <h:a href="https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html">java.util.regex.Pattern</h:a> which must match against the value entered by the user.</xs:documentation>
         </xs:annotation>
       </xs:attribute>
     </xs:complexType>
@@ -180,12 +234,12 @@
           <xs:documentation>The type of encoding to apply to the HTTP body sent in the upload</xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="includeSelection" type="xs:boolean">
+      <xs:attribute name="includeSelection" type="xs:boolean" default="false">
         <xs:annotation>
           <xs:documentation>Indicates whether the selection should also be sent as part of the body</xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="includeDependent" type="xs:boolean">
+      <xs:attribute name="includeDependent" type="xs:boolean" default="false">
         <xs:annotation>
           <xs:documentation>Indicates whether the the dependent (if configured) should also be sent as part of the body</xs:documentation>
         </xs:annotation>
@@ -318,12 +372,12 @@
       <xs:sequence>
         <xs:element name="binding" maxOccurs="unbounded">
           <xs:complexType>
-            <xs:attribute name="prefix" type="xs:NCName">
+            <xs:attribute name="prefix" type="xs:NCName" use="required">
               <xs:annotation>
                 <xs:documentation>The prefix used in the XPath</xs:documentation>
               </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="namespace" type="xs:anyURI">
+            <xs:attribute name="namespace" type="xs:anyURI" use="required">
               <xs:annotation>
                 <xs:documentation>The namespace to refer to by the <h:i>prefix</h:i></xs:documentation>
               </xs:annotation>

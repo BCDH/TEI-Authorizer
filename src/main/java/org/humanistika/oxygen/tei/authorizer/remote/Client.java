@@ -19,8 +19,11 @@
  */
 package org.humanistika.oxygen.tei.authorizer.remote;
 
+import org.humanistika.oxygen.tei.authorizer.SuggestedAutocomplete;
 import org.humanistika.oxygen.tei.authorizer.configuration.beans.UploadInfo;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 /**
  * TEI Authorizer Client interface extends the TEI Completer Client interface
@@ -33,6 +36,24 @@ import org.jetbrains.annotations.Nullable;
  */
 public interface Client extends org.humanistika.oxygen.tei.completer.remote.Client {
 
+    class SuggestionResponse {
+        private final boolean success;
+        @Nullable private final String message;
+
+        public SuggestionResponse(boolean success, String message) {
+            this.success = success;
+            this.message = message;
+        }
+
+        public boolean isSuccess() {
+            return success;
+        }
+
+        @Nullable public String getMessage() {
+            return message;
+        }
+    }
+
     /**
      * Upload an autocomplete suggestion to the server
      *
@@ -41,9 +62,10 @@ public interface Client extends org.humanistika.oxygen.tei.completer.remote.Clie
      * @param description The description of the suggestion or null
      * @param selectionValue The value of the selection or null
      * @param dependentValue The value of the dependent or null
+     * @param userValues The user specified values or null
      *
-     * @return true if the suggestion was accepted by the server
+     * @return A response to the suggestion from the server
      */
-    boolean uploadSuggestion(final UploadInfo uploadInfo, final String suggestion, @Nullable final String description, @Nullable final String selectionValue, @Nullable final String dependentValue);
+    SuggestionResponse uploadSuggestion(final UploadInfo uploadInfo, final String suggestion, @Nullable final String description, @Nullable final String selectionValue, @Nullable final String dependentValue, @Nullable final List<SuggestedAutocomplete.UserValue> userValues);
 }
 

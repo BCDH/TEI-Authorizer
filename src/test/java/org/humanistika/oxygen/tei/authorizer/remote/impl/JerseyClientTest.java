@@ -198,8 +198,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.XML, BodyInfo.Encoding.NONE, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -216,8 +216,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.XML, BodyInfo.Encoding.NONE, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -234,8 +234,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.XML, BodyInfo.Encoding.NONE, true, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -252,8 +252,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.XML, BodyInfo.Encoding.NONE, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -270,8 +270,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = "some-dependent";
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.XML, BodyInfo.Encoding.NONE, true, true, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -288,8 +288,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = "some-dependent";
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.XML, BodyInfo.Encoding.NONE, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -307,8 +307,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.JSON, BodyInfo.Encoding.NONE, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -326,8 +326,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.JSON, BodyInfo.Encoding.NONE, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -344,8 +344,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.FORM, BodyInfo.Encoding.NONE, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -362,8 +362,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.FORM, BodyInfo.Encoding.NONE, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -379,8 +379,8 @@ public class JerseyClientTest extends JerseyTest {
         final String selectionValue = null;
         final String dependentValue = null;
 
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload-qs?" + UploadInfo.UrlVar.SUGGESTION.camelName() + "=" + UploadInfo.UrlVar.SUGGESTION.var(), null, null);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload-qs?" + UploadInfo.UrlVar.SUGGESTION.camelName() + "=" + UploadInfo.UrlVar.SUGGESTION.var(), null, null, null);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -396,8 +396,8 @@ public class JerseyClientTest extends JerseyTest {
         final String selectionValue = null;
         final String dependentValue = null;
 
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload-qs?" + UploadInfo.UrlVar.SUGGESTION.camelName() + "=" + UploadInfo.UrlVar.SUGGESTION.var() + "&" + UploadInfo.UrlVar.DESCRIPTION.camelName() + "=" + UploadInfo.UrlVar.DESCRIPTION.var(), null, null);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload-qs?" + UploadInfo.UrlVar.SUGGESTION.camelName() + "=" + UploadInfo.UrlVar.SUGGESTION.var() + "&" + UploadInfo.UrlVar.DESCRIPTION.camelName() + "=" + UploadInfo.UrlVar.DESCRIPTION.var(), null, null, null);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -413,8 +413,8 @@ public class JerseyClientTest extends JerseyTest {
         final String selectionValue = "some-selection";
         final String dependentValue = null;
 
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload-qs?" + UploadInfo.UrlVar.SUGGESTION.camelName() + "=" + UploadInfo.UrlVar.SUGGESTION.var() + "&" + UploadInfo.UrlVar.DESCRIPTION.camelName() + "=" + UploadInfo.UrlVar.DESCRIPTION.var() + "&" + UploadInfo.UrlVar.SELECTION_VALUE.camelName() + "=" + UploadInfo.UrlVar.SELECTION_VALUE.var(), null, null);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload-qs?" + UploadInfo.UrlVar.SUGGESTION.camelName() + "=" + UploadInfo.UrlVar.SUGGESTION.var() + "&" + UploadInfo.UrlVar.DESCRIPTION.camelName() + "=" + UploadInfo.UrlVar.DESCRIPTION.var() + "&" + UploadInfo.UrlVar.SELECTION_VALUE.camelName() + "=" + UploadInfo.UrlVar.SELECTION_VALUE.var(), null, null, null);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -430,8 +430,8 @@ public class JerseyClientTest extends JerseyTest {
         final String selectionValue = "some-selection";
         final String dependentValue = "some-dependent";
 
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload-qs?" + UploadInfo.UrlVar.SUGGESTION.camelName() + "=" + UploadInfo.UrlVar.SUGGESTION.var() + "&" + UploadInfo.UrlVar.DESCRIPTION.camelName() + "=" + UploadInfo.UrlVar.DESCRIPTION.var() + "&" + UploadInfo.UrlVar.SELECTION_VALUE.camelName() + "=" + UploadInfo.UrlVar.SELECTION_VALUE.var() + "&" + UploadInfo.UrlVar.DEPENDENT_VALUE.camelName() + "=" + UploadInfo.UrlVar.DEPENDENT_VALUE.var(), null, null);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload-qs?" + UploadInfo.UrlVar.SUGGESTION.camelName() + "=" + UploadInfo.UrlVar.SUGGESTION.var() + "&" + UploadInfo.UrlVar.DESCRIPTION.camelName() + "=" + UploadInfo.UrlVar.DESCRIPTION.var() + "&" + UploadInfo.UrlVar.SELECTION_VALUE.camelName() + "=" + UploadInfo.UrlVar.SELECTION_VALUE.var() + "&" + UploadInfo.UrlVar.DEPENDENT_VALUE.camelName() + "=" + UploadInfo.UrlVar.DEPENDENT_VALUE.var(), null, null, null);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -448,8 +448,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.XML, BodyInfo.Encoding.GZIP, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -466,8 +466,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.XML, BodyInfo.Encoding.GZIP, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -485,8 +485,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.JSON, BodyInfo.Encoding.GZIP, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -504,8 +504,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.JSON, BodyInfo.Encoding.GZIP, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -522,8 +522,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.FORM, BodyInfo.Encoding.GZIP, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -540,8 +540,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.FORM, BodyInfo.Encoding.GZIP, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -558,8 +558,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.XML, BodyInfo.Encoding.NONE, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -576,8 +576,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.XML, BodyInfo.Encoding.NONE, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -595,8 +595,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.JSON, BodyInfo.Encoding.NONE, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -614,8 +614,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.JSON, BodyInfo.Encoding.NONE, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -632,8 +632,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.FORM, BodyInfo.Encoding.NONE, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -650,8 +650,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.FORM, BodyInfo.Encoding.NONE, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -667,8 +667,8 @@ public class JerseyClientTest extends JerseyTest {
         final String selectionValue = null;
         final String dependentValue = null;
 
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload-qs?" + UploadInfo.UrlVar.SUGGESTION.camelName() + "=" + UploadInfo.UrlVar.SUGGESTION.var(), null, null);
-        new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload-qs?" + UploadInfo.UrlVar.SUGGESTION.camelName() + "=" + UploadInfo.UrlVar.SUGGESTION.var(), null, null, null);
+        new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null);
     }
 
     @Test(expected = IllegalStateException.class)
@@ -678,8 +678,8 @@ public class JerseyClientTest extends JerseyTest {
         final String selectionValue = null;
         final String dependentValue = null;
 
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload-qs?" + UploadInfo.UrlVar.SUGGESTION.camelName() + "=" + UploadInfo.UrlVar.SUGGESTION.var() + "&" + UploadInfo.UrlVar.DESCRIPTION.camelName() + "=" + UploadInfo.UrlVar.DESCRIPTION.var(), null, null);
-        new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload-qs?" + UploadInfo.UrlVar.SUGGESTION.camelName() + "=" + UploadInfo.UrlVar.SUGGESTION.var() + "&" + UploadInfo.UrlVar.DESCRIPTION.camelName() + "=" + UploadInfo.UrlVar.DESCRIPTION.var(), null, null, null);
+        new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null);
     }
 
     @Test
@@ -690,8 +690,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.XML, BodyInfo.Encoding.GZIP, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -708,8 +708,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.XML, BodyInfo.Encoding.GZIP, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -727,8 +727,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.JSON, BodyInfo.Encoding.GZIP, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -746,8 +746,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.JSON, BodyInfo.Encoding.GZIP, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -764,8 +764,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.FORM, BodyInfo.Encoding.NONE, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -782,8 +782,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.FORM, BodyInfo.Encoding.GZIP, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload", null, null, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -801,8 +801,8 @@ public class JerseyClientTest extends JerseyTest {
 
         final Authentication authentication = new Authentication(Authentication.AuthenticationType.PREEMPTIVE_BASIC, TEST_USERNAME, TEST_PASSWORD);
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.XML, BodyInfo.Encoding.NONE, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/secure/upload", authentication, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.PREEMPTIVE_BASIC, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/secure/upload", null, authentication, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.PREEMPTIVE_BASIC, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -821,8 +821,8 @@ public class JerseyClientTest extends JerseyTest {
 
         final Authentication authentication = new Authentication(Authentication.AuthenticationType.PREEMPTIVE_BASIC, TEST_USERNAME, TEST_PASSWORD);
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.JSON, BodyInfo.Encoding.NONE, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/secure/upload", authentication, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.PREEMPTIVE_BASIC, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/secure/upload", null, authentication, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.PREEMPTIVE_BASIC, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -840,8 +840,8 @@ public class JerseyClientTest extends JerseyTest {
 
         final Authentication authentication = new Authentication(Authentication.AuthenticationType.PREEMPTIVE_BASIC, TEST_USERNAME, TEST_PASSWORD);
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.FORM, BodyInfo.Encoding.NONE, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/secure/upload", authentication, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.PREEMPTIVE_BASIC, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/secure/upload", null, authentication, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.PREEMPTIVE_BASIC, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -858,8 +858,8 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final Authentication authentication = new Authentication(Authentication.AuthenticationType.PREEMPTIVE_BASIC, TEST_USERNAME, TEST_PASSWORD);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload-qs?" + UploadInfo.UrlVar.SUGGESTION.camelName() + "=" + UploadInfo.UrlVar.SUGGESTION.var() + "&" + UploadInfo.UrlVar.DESCRIPTION.camelName() + "=" + UploadInfo.UrlVar.DESCRIPTION.var(), authentication, null);
-        final boolean success = new JerseyClient(AuthenticationType.PREEMPTIVE_BASIC, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.POST, getBaseUri() + "multext/upload-qs?" + UploadInfo.UrlVar.SUGGESTION.camelName() + "=" + UploadInfo.UrlVar.SUGGESTION.var() + "&" + UploadInfo.UrlVar.DESCRIPTION.camelName() + "=" + UploadInfo.UrlVar.DESCRIPTION.var(), null, authentication, null);
+        final boolean success = new JerseyClient(AuthenticationType.PREEMPTIVE_BASIC, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
@@ -877,8 +877,8 @@ public class JerseyClientTest extends JerseyTest {
 
         final Authentication authentication = new Authentication(Authentication.AuthenticationType.PREEMPTIVE_BASIC, TEST_USERNAME, TEST_PASSWORD);
         final BodyInfo bodyInfo = new BodyInfo(BodyInfo.BodyType.XML, BodyInfo.Encoding.NONE, false, false, null);
-        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/secure/upload", authentication, bodyInfo);
-        final boolean success = new JerseyClient(AuthenticationType.PREEMPTIVE_BASIC, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue);
+        final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/secure/upload", null, authentication, bodyInfo);
+        final boolean success = new JerseyClient(AuthenticationType.PREEMPTIVE_BASIC, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null).isSuccess();
 
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);

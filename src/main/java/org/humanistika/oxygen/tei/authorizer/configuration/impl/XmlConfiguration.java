@@ -24,6 +24,7 @@ import org.humanistika.oxygen.tei.authorizer.configuration.beans.AutoComplete;
 import org.humanistika.oxygen.tei.authorizer.configuration.Configuration;
 import org.humanistika.oxygen.tei.authorizer.configuration.beans.BodyInfo;
 import org.humanistika.oxygen.tei.authorizer.configuration.beans.UploadInfo;
+import org.humanistika.oxygen.tei.authorizer.configuration.beans.UserFieldInfo;
 import org.humanistika.oxygen.tei.completer.configuration.beans.Authentication;
 import org.humanistika.oxygen.tei.completer.configuration.beans.Dependent;
 import org.humanistika.oxygen.tei.completer.configuration.beans.RequestInfo;
@@ -41,6 +42,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import static org.humanistika.oxygen.tei.completer.configuration.beans.RequestInfo.UrlVar.BASE_URL;
 import static org.humanistika.oxygen.tei.completer.configuration.beans.RequestInfo.UrlVar.PASSWORD;
@@ -119,6 +121,23 @@ public class XmlConfiguration extends org.humanistika.oxygen.tei.completer.confi
             } else {
                 final Upload upload = autoComplete.getUpload();
 
+                final List<UserFieldInfo> userFieldsInfo;
+                if(upload.getUserFields() == null) {
+                    userFieldsInfo = null;
+                } else {
+                    userFieldsInfo = new ArrayList<>();
+                    for(final UserField userField : upload.getUserFields().getUserField()) {
+                        final Pattern validateWith;
+                        if(userField.getValidateWith() == null) {
+                            validateWith = null;
+                        } else {
+                            validateWith = Pattern.compile(userField.getValidateWith());
+                        }
+                        final UserFieldInfo userFieldInfo = new UserFieldInfo(userField.getName(), userField.getLabel(), userField.isMultiline(), userField.isRequired(), userField.getInitialValue(), userField.getDefaultValue(), validateWith);
+                        userFieldsInfo.add(userFieldInfo);
+                    }
+                }
+
                 final Authentication uploadAuthentication = resolveAuthentication(config.getServer(),upload.getServer());
 
                 final BodyInfo bodyInfo;
@@ -137,6 +156,7 @@ public class XmlConfiguration extends org.humanistika.oxygen.tei.completer.confi
                 uploadInfo = new UploadInfo(
                         asUploadInfoMethod(upload.getMethod()),
                         expandUrl(config.getServer(), upload, i+1, uploadAuthentication),
+                        userFieldsInfo,
                         uploadAuthentication,
                         bodyInfo
                 );
