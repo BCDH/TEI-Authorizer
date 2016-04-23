@@ -34,6 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ro.sync.net.protocol.http.HttpExceptionWithDetails;
 
+import javax.ws.rs.ProcessingException;
 import javax.ws.rs.core.*;
 import javax.xml.bind.JAXBContext;
 import javax.ws.rs.client.Entity;
@@ -165,9 +166,14 @@ public class JerseyClient extends org.humanistika.oxygen.tei.completer.remote.im
                 LOGGER.error("Unable to upload suggestion to server: {}", statusInfo.getReasonPhrase());
                 return new SuggestionResponse(false, statusInfo.getReasonPhrase());
             }
-        } catch (final HttpExceptionWithDetails e) {        //TODO(AR) somehow we don't seem to be able to catch this Oxygen exception, but why is Jersey even throwing it?!?
+        } catch (final ProcessingException e) {
             LOGGER.error(e.getMessage(), e);
-            return new SuggestionResponse(false, e.getReason());
+            if(e.getCause() instanceof HttpExceptionWithDetails) {
+                final HttpExceptionWithDetails httpEx = ((HttpExceptionWithDetails)e.getCause());
+                return new SuggestionResponse(false, "HTTP " + httpEx.getReasonCode() + " " + httpEx.getReason());
+            } else {
+                return new SuggestionResponse(false, e.getMessage());
+            }
         } catch (final URISyntaxException | IOException | TransformationException e) {
             LOGGER.error(e.getMessage(), e);
             return new SuggestionResponse(false, e.getMessage());

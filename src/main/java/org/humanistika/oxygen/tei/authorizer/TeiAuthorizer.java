@@ -152,7 +152,9 @@ public class TeiAuthorizer extends TeiCompleter {
                         final KeyboardFocusManager keyboardFocusManager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
                         final Component comp = keyboardFocusManager.getFocusOwner();
                         final Frame frame = getParentFrame(comp);
-                        JOptionPane.showMessageDialog(frame, suggestionResponse.getMessage() != null ? suggestionResponse.getMessage() : "Unable to upload the suggestion to the server", "Error Uploading Suggestion", JOptionPane.ERROR_MESSAGE);
+                        final String msg = "Unable to upload the suggestion to the server";
+                        JOptionPane.showMessageDialog(frame, suggestionResponse.getMessage() != null ? msg + ":" + System.getProperty("line.separator") + suggestionResponse.getMessage() : msg, "Error Uploading Suggestion", JOptionPane.ERROR_MESSAGE);
+                        this.suggestion = "";
                     }
                 }
             }
