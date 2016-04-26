@@ -22,6 +22,8 @@ package org.humanistika.oxygen.tei.authorizer.gui;
 import org.humanistika.oxygen.tei.authorizer.SuggestedAutocomplete;
 import org.humanistika.oxygen.tei.authorizer.configuration.beans.UserFieldInfo;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
@@ -37,6 +39,8 @@ import java.util.List;
  * @serial 20160405
  */
 public class NewSuggestionForm extends javax.swing.JDialog {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(NewSuggestionForm.class);
 
     private static class UserFieldText {
         private final UserFieldInfo userFieldInfo;
@@ -157,6 +161,8 @@ public class NewSuggestionForm extends javax.swing.JDialog {
         lblSuggestion = new javax.swing.JLabel();
         lblDescription = new javax.swing.JLabel();
         txtSuggestion = new javax.swing.JTextField();
+        txtSuggestion.setInputVerifier(new RequiredVerifier(false));
+        new HighlightListener(txtSuggestion, false);
         spDescription = new javax.swing.JScrollPane();
         txtDescription = new javax.swing.JTextArea();
         btnOk = new javax.swing.JButton();
@@ -256,23 +262,41 @@ public class NewSuggestionForm extends javax.swing.JDialog {
         final String suggestion = txtSuggestion.getText();
         final String description = txtDescription.getText();
 
+        final boolean validUserValues;
         final List<SuggestedAutocomplete.UserValue> userValues;
         if(userFieldTexts == null) {
             userValues = null;
+            validUserValues = true;
         } else {
             userValues = new ArrayList<>();
+            boolean valid = true;
             for(final UserFieldText userFieldText : userFieldTexts) {
 
                 // get the user entered text or the default value (if present)
-                final boolean userEnteredValue = userFieldText.getText().getText() != null && !userFieldText.getText().getText().isEmpty();
-                final String value = (!userEnteredValue && userFieldText.getUserFieldInfo().getDefaultValue() != null ? userFieldText.getUserFieldInfo().getDefaultValue() : userFieldText.getText().getText());
+                final JTextComponent jText = userFieldText.getText();
+                final boolean userEnteredValue = jText.getText() != null && !jText.getText().isEmpty();
+                final String value = (!userEnteredValue && userFieldText.getUserFieldInfo().getDefaultValue() != null ? userFieldText.getUserFieldInfo().getDefaultValue() : jText.getText());
 
                 userValues.add(new SuggestedAutocomplete.UserValue(userFieldText.getUserFieldInfo().getName(), value));
+
+                final InputVerifier verifier = jText.getInputVerifier();
+                if(verifier != null) {
+                    if(!verifier.verify(jText)) {
+                        valid = false;
+                    }
+                }
             }
+            validUserValues = valid;
         }
 
-        this.suggestedAutocomplete = new SuggestedAutocomplete(suggestion, description == null || description.length() == 0 ? null : description, userValues);
-        dispose();
+        //TODO(AR) only close if validation passes
+        final boolean validSuggestion = txtSuggestion.getInputVerifier().verify(txtSuggestion);
+        if(validSuggestion && validUserValues) {
+            this.suggestedAutocomplete = new SuggestedAutocomplete(suggestion, description == null || description.length() == 0 ? null : description, userValues);
+            dispose();
+        } else {
+            LOGGER.debug("Not OK'ing form, validSuggestion={}, validUserValues={}", validSuggestion, validUserValues);
+        }
     }//GEN-LAST:event_btnOkActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
