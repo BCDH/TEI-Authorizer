@@ -23,6 +23,7 @@ import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.humanistika.ns.tei_authorizer.Suggestion;
 import org.humanistika.ns.tei_authorizer.UserValue;
+import org.humanistika.ns.tei_authorizer.UserValues;
 import org.humanistika.oxygen.tei.authorizer.SuggestedAutocomplete;
 import org.humanistika.oxygen.tei.authorizer.configuration.beans.BodyInfo;
 import org.humanistika.oxygen.tei.authorizer.configuration.beans.UploadInfo;
@@ -192,6 +193,9 @@ public class JerseyClient extends org.humanistika.oxygen.tei.completer.remote.im
                 final UserValue uv = new UserValue();
                 uv.setName(userValue.getName());
                 uv.setValue(userValue.getValue());
+                if(suggestion.getUserValues() == null) {
+                    suggestion.setUserValues(new UserValues());
+                }
                 suggestion.getUserValues().getUserValue().add(uv);
             }
         }
