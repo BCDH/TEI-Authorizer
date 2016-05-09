@@ -2,7 +2,7 @@
 
 TEI Authorizer is a highly customizable plugin for [oXygen XML Editor](http://www.oxygenxml.com) which lets you: a) query remote authority files via HTTP and use retrieved data to autocomplete attribute values in your TEI documents; and b) define and implement forms to fill out new data and post it to your server via HTTP — all this from the comfort of your favorite XML editor. 
 
-The plugin is an extension of [TEI Completer](XXX) TODO LINK    
+The plugin is an extension of [TEI Completer](https://github.com/BCDH/TEI-Completer).   
 
 We use it in a variety of contexts ranging from morphosyntactic annotation and standardization of historical spellings, to linking prosopographic entities in the text with entries in authority files.
 
@@ -90,7 +90,7 @@ A sample `config.xml` which requests auto-completion suggestions for all `//w/@l
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<config xmlns="http://humanistika.org/ns/tei-completer">
+<config xmlns="http://humanistika.org/ns/tei-authorizer">
     <server>
         <authentication type="Preemptive-Basic">
             <username>my-username</username>
@@ -134,7 +134,7 @@ However, if your server already has a fixed format, you may use a [Response Tran
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<suggestions xmlns="http://humanistika.org/ns/tei-completer">
+<suggestions xmlns="http://humanistika.org/ns/tei-authorizer">
     <suggestion>
         <value>suggestion1</value>
         <description>A description of suggestion 1</description>
@@ -166,7 +166,7 @@ However, if your server already has a fixed format, you may use a [Response Tran
 
 # Response Transformations
 
-If your server does not or cannot return data in either the XML or JSON format described in the [Server Messages](#server-messages) section, then you can create a Response Transformation file to convert the format of the data supplied by your server to that required by the TEI-Completer.
+If your server does not or cannot return data in either the XML or JSON format described in the [Server Messages](#server-messages) section, then you can create a Response Transformation file to convert the format of the data supplied by your server to that required by the TEI-Authorizer.
 
 Each Response Transformation file must be listed in the [config.xml](#configuring).
 
