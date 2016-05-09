@@ -1,6 +1,5 @@
 # TEI-Authorizer
 
-
 TEI Authorizer is a highly customizable plugin for [oXygen XML Editor](http://www.oxygenxml.com) which lets you: a) query remote authority files via HTTP and use retrieved data to autocomplete attribute values in your TEI documents; and b) define and implement forms to fill out new data and post it to your server via HTTP — all this from the comfort of your favorite XML editor. 
 
 The plugin is an extension of [TEI Completer](XXX) TODO LINK    
@@ -247,4 +246,3 @@ This tool has been developed in the context of two ongoing BCDH projects: *Rasko
 TODO change img
 
 ---
-
