@@ -24,7 +24,7 @@ TODO img
 
 # Installation
 
-1. Download the precompiled binary of the TEI Completer from [here](http://search.maven.org/remotecontent?filepath=org/humanistika/oxygen/tei-authorizer/1.0/tei-authorizer-1.0-oxygen-plugin.jar) or [build from source](#building). TODO check link
+1. Download the precompiled binary of the TEI Authorizer from [here](http://search.maven.org/remotecontent?filepath=org/humanistika/oxygen/tei-authorizer/1.0/tei-authorizer-1.0-oxygen-plugin.jar) or [build from source](#building). TODO check link
 
 2. Copy the file `tei-authorizer-1.0-oxygen-plugin.jar` to `$OXYGEN_HOME/frameworks/tei`.
 
@@ -74,7 +74,7 @@ TODO change img
 
 # Configuring
 
-The TEI Completer uses an XML configuration file whoose syntax is documented in the XML Schema [config.xsd](https://raw.githubusercontent.com/BCDH/TEI-AUTHORIZER/master/src/main/resources/config.xsd). TODO check link
+The TEI Authorizer uses an XML configuration file whoose syntax is documented in the XML Schema [config.xsd](https://raw.githubusercontent.com/BCDH/TEI-AUTHORIZER/master/src/main/resources/config.xsd). TODO check link
 
 The XML file must be named `config.xml` and placed in a folder named `.bcdh-tei-authorizer` in your user profile. The
 following are the known locations for the config file:
@@ -241,7 +241,7 @@ This tool has been developed in the context of two ongoing BCDH projects: *Rasko
 
 ---
 
-![alt text](doc/images/sense.png?raw="true" "TEI Completer in action")
+![alt text](doc/images/sense.png?raw="true" "TEI Authorizer in action")
 
 TODO change img
 
