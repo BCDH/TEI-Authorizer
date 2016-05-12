@@ -57,7 +57,7 @@ import java.util.Map;
 /**
  * Server client implemented using Jersey
  *
- * @author Adam Retter, Evolved Binary Ltd <adam.retter@googlemail.com>
+ * @author Adam Retter, Evolved Binary Ltd
  * @version 1.0
  * @serial 20160405
  */
@@ -215,6 +215,8 @@ public class JerseyClient extends org.humanistika.oxygen.tei.completer.remote.im
      * @param dependentValue the value of the dependent or null
      *
      * @return The URL for connecting to the server
+     *
+     * @throws MalformedURLException if the configured URL to use is invalid
      */
     protected URL getUrl(final UploadInfo uploadInfo, final String suggestion, @Nullable final String description, @Nullable final String selectionValue, @Nullable final String dependentValue) throws MalformedURLException {
         final Map<UploadInfo.UrlVar, String> substitutions = new HashMap<>();

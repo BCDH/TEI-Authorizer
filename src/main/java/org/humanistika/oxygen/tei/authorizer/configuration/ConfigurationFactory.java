@@ -24,7 +24,7 @@ import org.humanistika.oxygen.tei.authorizer.configuration.impl.XmlConfiguration
 /**
  * Factory for creating instances of TeiCompleter
  *
- * @author Adam Retter, Evolved Binary Ltd <adam.retter@googlemail.com>
+ * @author Adam Retter, Evolved Binary Ltd
  * @version 1.0
  * @serial 20160405
  */

@@ -24,7 +24,7 @@ import org.humanistika.oxygen.tei.authorizer.configuration.beans.AutoComplete;
 /**
  * TEI-Authorizer Configuration interface
  *
- * @author Adam Retter, Evolved Binary Ltd <adam.retter@googlemail.com>
+ * @author Adam Retter, Evolved Binary Ltd
  * @version 1.0
  * @serial 20160405
  */

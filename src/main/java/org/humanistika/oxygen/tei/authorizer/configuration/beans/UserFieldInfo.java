@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 /**
  * Configuration details for uploading a User Field to a server
  *
- * @author Adam Retter, Evolved Binary Ltd <adam.retter@googlemail.com>
+ * @author Adam Retter, Evolved Binary Ltd
  * @version 1.0
  * @serial 20160405
  */

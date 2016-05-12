@@ -27,7 +27,7 @@ import java.util.List;
  * A user entered suggestion for an autocomplete
  * value
  *
- * @author Adam Retter, Evolved Binary Ltd <adam.retter@googlemail.com>
+ * @author Adam Retter, Evolved Binary Ltd
  * @version 1.0
  * @serial 20160405
  */

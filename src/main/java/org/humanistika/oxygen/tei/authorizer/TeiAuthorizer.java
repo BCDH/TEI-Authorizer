@@ -51,7 +51,7 @@ import java.util.List;
  * it allows you to create new content values.
  * Content values are retrieved from and stored to a remote server.
  *
- * @author Adam Retter, Evolved Binary Ltd <adam.retter@googlemail.com>
+ * @author Adam Retter, Evolved Binary Ltd
  * @version 1.0
  * @serial 20160405
  */

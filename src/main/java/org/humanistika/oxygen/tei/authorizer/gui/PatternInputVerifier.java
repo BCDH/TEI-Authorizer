@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 /**
  * Verifies the input to a text box based on a regular expression
  *
- * @author Adam Retter, Evolved Binary Ltd <adam.retter@googlemail.com>
+ * @author Adam Retter, Evolved Binary Ltd
  */
 public class PatternInputVerifier extends InputVerifier {
     private final Matcher matcher;

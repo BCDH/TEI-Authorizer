@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * Configuration details for uploading a suggestion to a server
  *
- * @author Adam Retter, Evolved Binary Ltd <adam.retter@googlemail.com>
+ * @author Adam Retter, Evolved Binary Ltd
  * @version 1.0
  * @serial 20160405
  */

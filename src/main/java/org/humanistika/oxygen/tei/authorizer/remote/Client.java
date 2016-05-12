@@ -30,7 +30,7 @@ import java.util.List;
  * for getting auto-complete suggestions from a remote server
  * with the ability to upload a suggestion to the server
  *
- * @author Adam Retter, Evolved Binary Ltd <adam.retter@googlemail.com>
+ * @author Adam Retter, Evolved Binary Ltd
  * @version 1.0
  * @serial 20160405
  */

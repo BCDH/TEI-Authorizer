@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * Form for a user to enter the details of a suggested automcomplete
  *
- * @author Adam Retter, Evolved Binary Ltd <adam.retter@googlemail.com>
+ * @author Adam Retter, Evolved Binary Ltd
  * @version 1.0
  * @serial 20160405
  */
@@ -65,6 +65,9 @@ public class NewSuggestionForm extends javax.swing.JDialog {
 
     /**
      * Creates new form NewSuggestionForm
+     *
+     * @param owner The frame which should be the owner of this frame
+     * @param userFieldsInfo Details of any custom user fields to construct and display
      */
     public NewSuggestionForm(final Frame owner, final java.util.List<UserFieldInfo> userFieldsInfo) {
         super(owner, ModalityType.DOCUMENT_MODAL);

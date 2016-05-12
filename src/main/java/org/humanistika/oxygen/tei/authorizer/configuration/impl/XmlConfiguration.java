@@ -56,7 +56,7 @@ import static org.humanistika.oxygen.tei.completer.configuration.beans.RequestIn
  *
  * On Windows platforms the properties file will be loaded from %USER_PROFILE%/Application Data/.bcdh-tei-authorizer/config.xml
  *
- * @author Adam Retter, Evolved Binary Ltd <adam.retter@googlemail.com>
+ * @author Adam Retter, Evolved Binary Ltd
  * @version 1.0
  * @serial 20160405
  */

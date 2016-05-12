@@ -52,7 +52,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Integration tests for {@link org.humanistika.oxygen.tei.authorizer.remote.impl.JerseyClient}
  *
- * @author Adam Retter, Evolved Binary Ltd <adam.retter@googlemail.com>
+ * @author Adam Retter, Evolved Binary Ltd
  * @version 1.0
  * @serial 20160405
  */

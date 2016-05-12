@@ -25,7 +25,7 @@ import javax.swing.text.JTextComponent;
 /**
  * Verifies that the user has entered something in a text box
  *
- * @author Adam Retter, Evolved Binary Ltd <adam.retter@googlemail.com>
+ * @author Adam Retter, Evolved Binary Ltd
  */
 public class RequiredVerifier extends InputVerifier {
     private final boolean hasDefaultValue;
