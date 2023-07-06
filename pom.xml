@@ -47,10 +47,10 @@
         <oxygen.sdk.version>17.1.0.2</oxygen.sdk.version>
         <jersey.version>2.22.2</jersey.version>
         <slf4j.version>1.7.16</slf4j.version>
-        <jaxb2-basics.version>0.11.0</jaxb2-basics.version>
+        <jaxb2-basics.version>0.13.1</jaxb2-basics.version>
         <eclipse.persistence.version>2.6.3-M1</eclipse.persistence.version>
-        <project.build.source>1.7</project.build.source>
-        <project.build.target>1.7</project.build.target>
+        <project.build.source>1.8</project.build.source>
+        <project.build.target>1.8</project.build.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -58,7 +58,7 @@
         <dependency>
             <groupId>org.humanistika.oxygen</groupId>
             <artifactId>tei-completer</artifactId>
-            <version>1.0.2</version>
+            <version>1.2.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.oxygenxml</groupId>
@@ -73,6 +73,18 @@
                     <artifactId>js</artifactId>
                 </exclusion>
             </exclusions -->
+        </dependency>
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>2.3.3</version>
+            <scope>provided</scope>  <!-- provided by Oxygen -->
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.3.3</version>
+            <scope>provided</scope>  <!-- provided by Oxygen -->
         </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
@@ -227,9 +239,9 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.jvnet.jaxb2.maven2</groupId>
-                <artifactId>maven-jaxb22-plugin</artifactId>
-                <version>0.13.1</version>
+                <groupId>com.evolvedbinary.maven.jvnet</groupId>
+                <artifactId>jaxb23-maven-plugin</artifactId>
+                <version>0.15.0</version>
                 <configuration>
                     <extension>true</extension>
                     <args>
@@ -271,6 +283,7 @@
                                 <ignoredUnusedDeclaredDependency>org.glassfish.jersey.media:jersey-media-jaxb</ignoredUnusedDeclaredDependency>
                                 <ignoredUnusedDeclaredDependency>org.glassfish.jersey.media:jersey-media-moxy</ignoredUnusedDeclaredDependency>
                                 <ignoredUnusedDeclaredDependency>org.glassfish.jersey.core:jersey-client</ignoredUnusedDeclaredDependency>
+                                <ignoredUnusedDeclaredDependency>com.sun.xml.bind:jaxb-impl</ignoredUnusedDeclaredDependency>
                             </ignoredUnusedDeclaredDependencies>
                         </configuration>
                     </execution>
@@ -445,7 +458,7 @@
         <repository>
             <id>oxygen</id>
             <name>oXygen public artifacts</name>
-            <url>http://www.oxygenxml.com/maven</url>
+            <url>https://www.oxygenxml.com/maven</url>
         </repository>
     </repositories>
 
