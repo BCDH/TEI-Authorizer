@@ -215,6 +215,16 @@
             <scope>test</scope>
         </dependency -->
         <dependency>
+            <groupId>com.evolvedbinary.xpath</groupId>
+            <artifactId>xpath2-parser</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+        <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.14</version>
