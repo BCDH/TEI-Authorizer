@@ -169,12 +169,12 @@ public class JerseyClient extends org.humanistika.oxygen.tei.completer.remote.im
             }
         } catch (final ProcessingException e) {
             LOGGER.error(e.getMessage(), e);
-            if(e.getCause() instanceof HttpExceptionWithDetails) {
-                final HttpExceptionWithDetails httpEx = ((HttpExceptionWithDetails)e.getCause());
-                return new SuggestionResponse(false, "HTTP " + httpEx.getReasonCode() + " " + httpEx.getReason());
-            } else {
+//            if(e.getCause() instanceof HttpExceptionWithDetails) {
+//                final HttpExceptionWithDetails httpEx = ((HttpExceptionWithDetails)e.getCause());
+//                return new SuggestionResponse(false, "HTTP " + httpEx.getReasonCode() + " " + httpEx.getReason());
+//            } else {
                 return new SuggestionResponse(false, e.getMessage());
-            }
+//            }
         } catch (final URISyntaxException | IOException | TransformationException e) {
             LOGGER.error(e.getMessage(), e);
             return new SuggestionResponse(false, e.getMessage());

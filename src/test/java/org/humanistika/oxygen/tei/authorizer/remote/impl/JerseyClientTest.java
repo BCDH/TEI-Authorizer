@@ -30,9 +30,9 @@ import org.humanistika.oxygen.tei.authorizer.configuration.beans.BodyInfo;
 import org.humanistika.oxygen.tei.authorizer.configuration.beans.UploadInfo;
 import org.humanistika.oxygen.tei.completer.configuration.beans.Authentication;
 import org.humanistika.oxygen.tei.completer.remote.ClientFactory.AuthenticationType;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
@@ -46,8 +46,9 @@ import java.io.UnsupportedEncodingException;
 import java.nio.file.attribute.UserPrincipal;
 import java.security.Principal;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Integration tests for {@link org.humanistika.oxygen.tei.authorizer.remote.impl.JerseyClient}
@@ -74,7 +75,7 @@ public class JerseyClientTest extends JerseyTest {
     static String receivedSelectionValue = null;
     static String receivedDependentValue = null;
 
-    @Before
+    @BeforeEach
     public void resetState() {
         receivedSuggestion = null;
         receivedDescription = null;
@@ -298,7 +299,7 @@ public class JerseyClientTest extends JerseyTest {
         assertEquals(null, receivedDependentValue);
     }
 
-    @Ignore("Until we figure out how to have Jersey server accept JSON JAXB objects")
+    @Disabled("Until we figure out how to have Jersey server accept JSON JAXB objects")
     @Test
     public void postUploadSuggestion_Json() {
         final String suggestion = "some-suggestion";
@@ -317,7 +318,7 @@ public class JerseyClientTest extends JerseyTest {
         assertEquals(dependentValue, receivedDependentValue);
     }
 
-    @Ignore("Until we figure out how to have Jersey server accept JSON JAXB objects")
+    @Disabled("Until we figure out how to have Jersey server accept JSON JAXB objects")
     @Test
     public void postUploadSuggestionDescription_Json() {
         final String suggestion = "some-suggestion";
@@ -476,7 +477,7 @@ public class JerseyClientTest extends JerseyTest {
         assertEquals(dependentValue, receivedDependentValue);
     }
 
-    @Ignore("Until we figure out how to have Jersey server accept JSON JAXB objects")
+    @Disabled("Until we figure out how to have Jersey server accept JSON JAXB objects")
     @Test
     public void postUploadSuggestion_GzipJson() {
         final String suggestion = "some-suggestion";
@@ -495,7 +496,7 @@ public class JerseyClientTest extends JerseyTest {
         assertEquals(dependentValue, receivedDependentValue);
     }
 
-    @Ignore("Until we figure out how to have Jersey server accept JSON JAXB objects")
+    @Disabled("Until we figure out how to have Jersey server accept JSON JAXB objects")
     @Test
     public void postUploadSuggestionDescription_Gzip_Json() {
         final String suggestion = "some-suggestion";
@@ -586,7 +587,7 @@ public class JerseyClientTest extends JerseyTest {
         assertEquals(dependentValue, receivedDependentValue);
     }
 
-    @Ignore("Until we figure out how to have Jersey server accept JSON JAXB objects")
+    @Disabled("Until we figure out how to have Jersey server accept JSON JAXB objects")
     @Test
     public void putUploadSuggestion_Json() {
         final String suggestion = "some-suggestion";
@@ -605,7 +606,7 @@ public class JerseyClientTest extends JerseyTest {
         assertEquals(dependentValue, receivedDependentValue);
     }
 
-    @Ignore("Until we figure out how to have Jersey server accept JSON JAXB objects")
+    @Disabled("Until we figure out how to have Jersey server accept JSON JAXB objects")
     @Test
     public void putUploadSuggestionDescription_Json() {
         final String suggestion = "some-suggestion";
@@ -660,7 +661,7 @@ public class JerseyClientTest extends JerseyTest {
         assertEquals(dependentValue, receivedDependentValue);
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void putUploadSuggestion_queryString() {
         final String suggestion = "some-suggestion";
         final String description = null;
@@ -668,10 +669,13 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload-qs?" + UploadInfo.UrlVar.SUGGESTION.camelName() + "=" + UploadInfo.UrlVar.SUGGESTION.var(), null, null, null);
-        new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null);
+
+        assertThrows(IllegalStateException.class, () ->
+            new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null)
+        );
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void putUploadSuggestionDescription_queryString() {
         final String suggestion = "some-suggestion";
         final String description = "some-description";
@@ -679,7 +683,10 @@ public class JerseyClientTest extends JerseyTest {
         final String dependentValue = null;
 
         final UploadInfo uploadInfo = new UploadInfo(UploadInfo.Method.PUT, getBaseUri() + "multext/upload-qs?" + UploadInfo.UrlVar.SUGGESTION.camelName() + "=" + UploadInfo.UrlVar.SUGGESTION.var() + "&" + UploadInfo.UrlVar.DESCRIPTION.camelName() + "=" + UploadInfo.UrlVar.DESCRIPTION.var(), null, null, null);
-        new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null);
+
+        assertThrows(IllegalStateException.class, () ->
+            new JerseyClient(AuthenticationType.NONE, client()).uploadSuggestion(uploadInfo, suggestion, description, selectionValue, dependentValue, null)
+        );
     }
 
     @Test
@@ -718,7 +725,7 @@ public class JerseyClientTest extends JerseyTest {
         assertEquals(dependentValue, receivedDependentValue);
     }
 
-    @Ignore("Until we figure out how to have Jersey server accept JSON JAXB objects")
+    @Disabled("Until we figure out how to have Jersey server accept JSON JAXB objects")
     @Test
     public void putUploadSuggestion_Gzip_Json() {
         final String suggestion = "some-suggestion";
@@ -737,7 +744,7 @@ public class JerseyClientTest extends JerseyTest {
         assertEquals(dependentValue, receivedDependentValue);
     }
 
-    @Ignore("Until we figure out how to have Jersey server accept JSON JAXB objects")
+    @Disabled("Until we figure out how to have Jersey server accept JSON JAXB objects")
     @Test
     public void putUploadSuggestionDescription_Gzip_Json() {
         final String suggestion = "some-suggestion";
@@ -811,7 +818,7 @@ public class JerseyClientTest extends JerseyTest {
         assertEquals(dependentValue, receivedDependentValue);
     }
 
-    @Ignore("Until we figure out how to have Jersey server accept JSON JAXB objects")
+    @Disabled("Until we figure out how to have Jersey server accept JSON JAXB objects")
     @Test
     public void secure_preemptiveBasic_postUploadSuggestionDescription_Json() {
         final String suggestion = "some-suggestion";
