@@ -30,7 +30,7 @@ import org.humanistika.oxygen.tei.authorizer.configuration.beans.UploadInfo;
 import org.humanistika.oxygen.tei.authorizer.remote.Client;
 import org.humanistika.oxygen.tei.completer.remote.ClientFactory;
 import org.humanistika.oxygen.tei.completer.response.TransformationException;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ro.sync.net.protocol.http.HttpExceptionWithDetails;
@@ -218,7 +218,7 @@ public class JerseyClient extends org.humanistika.oxygen.tei.completer.remote.im
      *
      * @throws MalformedURLException if the configured URL to use is invalid
      */
-    protected URL getUrl(final UploadInfo uploadInfo, final String suggestion, @Nullable final String description, @Nullable final String selectionValue, @Nullable final String dependentValue) throws MalformedURLException {
+    private URL getUrl(final UploadInfo uploadInfo, final String suggestion, @Nullable final String description, @Nullable final String selectionValue, @Nullable final String dependentValue) throws MalformedURLException {
         final Map<UploadInfo.UrlVar, String> substitutions = new HashMap<>();
         if(uploadInfo.getAuthentication() != null) {
             substitutions.put(UploadInfo.UrlVar.USERNAME, uploadInfo.getAuthentication().getUsername());

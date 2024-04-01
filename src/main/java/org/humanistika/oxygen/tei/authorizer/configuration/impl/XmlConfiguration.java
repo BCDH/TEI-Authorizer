@@ -29,7 +29,7 @@ import org.humanistika.oxygen.tei.completer.configuration.beans.Authentication;
 import org.humanistika.oxygen.tei.completer.configuration.beans.Dependent;
 import org.humanistika.oxygen.tei.completer.configuration.beans.RequestInfo;
 import org.humanistika.oxygen.tei.completer.configuration.beans.ResponseAction;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

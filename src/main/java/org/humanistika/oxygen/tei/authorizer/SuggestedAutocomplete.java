@@ -19,7 +19,7 @@
  */
 package org.humanistika.oxygen.tei.authorizer;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 import java.util.List;
 
@@ -55,7 +55,7 @@ public class SuggestedAutocomplete {
     @Nullable private final String description;
     @Nullable private final List<UserValue> userValues;
 
-    public SuggestedAutocomplete(final String suggestion, final String description, final List<UserValue> userValues) {
+    public SuggestedAutocomplete(final String suggestion, @Nullable final String description, @Nullable final List<UserValue> userValues) {
         this.suggestion = suggestion;
         this.description = description;
         this.userValues = userValues;

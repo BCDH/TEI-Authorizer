@@ -19,7 +19,7 @@
  */
 package org.humanistika.oxygen.tei.authorizer.configuration.beans;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 import java.util.regex.Pattern;
 
@@ -39,7 +39,7 @@ public class UserFieldInfo {
     @Nullable private final String defaultValue;
     @Nullable private final Pattern validateWith;
 
-    public UserFieldInfo(final String name, final String label, final boolean multiline, final boolean required, final String initialValue, final String defaultValue, final Pattern validateWith) {
+    public UserFieldInfo(final String name, @Nullable final String label, final boolean multiline, final boolean required, @Nullable final String initialValue, @Nullable final String defaultValue, @Nullable final Pattern validateWith) {
         this.name = name;
         this.label = label;
         this.multiline = multiline;

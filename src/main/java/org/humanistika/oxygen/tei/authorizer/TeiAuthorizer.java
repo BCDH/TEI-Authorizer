@@ -29,7 +29,7 @@ import org.humanistika.oxygen.tei.completer.TeiCompleter;
 import org.humanistika.oxygen.tei.completer.configuration.Configuration;
 import org.humanistika.oxygen.tei.completer.configuration.beans.Authentication;
 import org.humanistika.oxygen.tei.completer.remote.ClientFactory;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ro.sync.contentcompletion.xml.CIValue;
@@ -95,6 +95,7 @@ public class TeiAuthorizer extends TeiCompleter {
         return list;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected Configuration getConfiguration() {
         if(configuration == null) {
@@ -125,7 +126,7 @@ public class TeiAuthorizer extends TeiCompleter {
         @Nullable private final String selectionValue;
         @Nullable private final String dependentValue;
 
-        public AddNewSuggestionCIValue(final UploadInfo uploadInfo, final String selectionValue, final String dependentValue) {
+        public AddNewSuggestionCIValue(final UploadInfo uploadInfo, @Nullable final String selectionValue, @Nullable final String dependentValue) {
             super("Add New...", "Add a new suggestion");
             this.uploadInfo = uploadInfo;
             this.selectionValue = selectionValue;

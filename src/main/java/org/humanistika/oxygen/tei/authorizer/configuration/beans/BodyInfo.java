@@ -19,7 +19,7 @@
  */
 package org.humanistika.oxygen.tei.authorizer.configuration.beans;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 import java.nio.file.Path;
 
@@ -49,7 +49,7 @@ public class BodyInfo {
     private final boolean includeDependent;
     @Nullable private final Path transformation;
 
-    public BodyInfo(final BodyType bodyType, final Encoding encoding, final boolean includeSelection, final boolean includeDependent, final Path transformation) {
+    public BodyInfo(final BodyType bodyType, final Encoding encoding, final boolean includeSelection, final boolean includeDependent, @Nullable final Path transformation) {
         this.bodyType = bodyType;
         this.encoding = encoding;
         this.includeSelection = includeSelection;

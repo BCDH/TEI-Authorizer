@@ -89,11 +89,6 @@
             <scope>provided</scope>  <!-- provided by Oxygen -->
         </dependency>
         <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations-java5</artifactId>
-            <version>15.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.moxy</artifactId>
             <version>${eclipse.persistence.version}</version>

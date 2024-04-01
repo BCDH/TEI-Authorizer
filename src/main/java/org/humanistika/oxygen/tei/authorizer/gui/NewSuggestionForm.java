@@ -21,7 +21,7 @@ package org.humanistika.oxygen.tei.authorizer.gui;
 
 import org.humanistika.oxygen.tei.authorizer.SuggestedAutocomplete;
 import org.humanistika.oxygen.tei.authorizer.configuration.beans.UserFieldInfo;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Form for a user to enter the details of a suggested automcomplete
+ * Form for a user to enter the details of a suggested auto-complete.
  *
  * @author Adam Retter, Evolved Binary Ltd
  * @version 1.0
@@ -148,7 +148,7 @@ public class NewSuggestionForm extends javax.swing.JDialog {
         return userFieldTexts;
     }
 
-    private final String capitalise(final String s) {
+    private String capitalise(final String s) {
         return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
     }
 

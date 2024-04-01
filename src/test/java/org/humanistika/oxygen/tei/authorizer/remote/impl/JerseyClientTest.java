@@ -41,12 +41,12 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.*;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.attribute.UserPrincipal;
 import java.security.Principal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -70,10 +70,10 @@ public class JerseyClientTest extends JerseyTest {
     }
 
     //state for holding the received data from the server
-    static String receivedSuggestion = null;
-    static String receivedDescription = null;
-    static String receivedSelectionValue = null;
-    static String receivedDependentValue = null;
+    private static String receivedSuggestion = null;
+    private static String receivedDescription = null;
+    private static String receivedSelectionValue = null;
+    private static String receivedDependentValue = null;
 
     @BeforeEach
     public void resetState() {
@@ -259,7 +259,7 @@ public class JerseyClientTest extends JerseyTest {
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
         assertEquals(description, receivedDescription);
-        assertEquals(null, receivedSelectionValue);
+        assertNull(receivedSelectionValue);
         assertEquals(dependentValue, receivedDependentValue);
     }
 
@@ -295,8 +295,8 @@ public class JerseyClientTest extends JerseyTest {
         assertTrue(success);
         assertEquals(suggestion, receivedSuggestion);
         assertEquals(description, receivedDescription);
-        assertEquals(null, receivedSelectionValue);
-        assertEquals(null, receivedDependentValue);
+        assertNull(receivedSelectionValue);
+        assertNull(receivedDependentValue);
     }
 
     @Disabled("Until we figure out how to have Jersey server accept JSON JAXB objects")
@@ -905,7 +905,7 @@ public class JerseyClientTest extends JerseyTest {
 
     public static class MockSecurityFilter implements ContainerRequestFilter {
         @Override
-        public void filter(final ContainerRequestContext requestContext) throws IOException {
+        public void filter(final ContainerRequestContext requestContext) {
             requestContext.setSecurityContext(new MockSecurityContext(requestContext));
         }
     }
@@ -925,17 +925,12 @@ public class JerseyClientTest extends JerseyTest {
             if(auth != null) {
                 if(auth.startsWith("Basic ")) {
                     auth = auth.replace("Basic ", "");
-                    try {
-                        final String userPassDecoded = new String(Base64.decodeBase64(auth), "UTF-8");
-                        final String userPass[] = userPassDecoded.split(":");
-                        if (userPass.length == 2) {
-                            if (userPass[0].equals(TEST_USERNAME) && userPass[1].equals(TEST_PASSWORD)) {
-                                return new AuthenticatedPrincipal(userPass[0]);
-                            }
+                    final String userPassDecoded = new String(Base64.decodeBase64(auth), StandardCharsets.UTF_8);
+                    final String userPass[] = userPassDecoded.split(":");
+                    if (userPass.length == 2) {
+                        if (userPass[0].equals(TEST_USERNAME) && userPass[1].equals(TEST_PASSWORD)) {
+                            return new AuthenticatedPrincipal(userPass[0]);
                         }
-                    } catch (final UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                        return null;
                     }
                 } else if(auth.startsWith("Digest ")) {
                     System.out.println("NEED DIGEST AUTH");

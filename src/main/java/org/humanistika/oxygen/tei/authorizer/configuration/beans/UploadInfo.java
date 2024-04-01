@@ -20,7 +20,7 @@
 package org.humanistika.oxygen.tei.authorizer.configuration.beans;
 
 import org.humanistika.oxygen.tei.completer.configuration.beans.Authentication;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -51,7 +51,7 @@ public class UploadInfo {
         }
 
         private String underscoreToCamel(String str) {
-            int idx = -1;
+            int idx;
             while((idx = str.indexOf('_')) > -1) {
                 str = str.substring(0, idx) + str.substring(idx + 1, idx + 2).toUpperCase() +  str.substring(idx + 2);
             }
@@ -70,7 +70,7 @@ public class UploadInfo {
     @Nullable private final Authentication authentication;
     @Nullable private final BodyInfo bodyInfo;
 
-    public UploadInfo(final Method method, final String url, final List<UserFieldInfo> userFieldsInfo, final Authentication authentication, final BodyInfo bodyInfo) {
+    public UploadInfo(final Method method, final String url, @Nullable final List<UserFieldInfo> userFieldsInfo, @Nullable final Authentication authentication, @Nullable final BodyInfo bodyInfo) {
         this.method = method;
         this.url = url;
         this.userFieldsInfo = userFieldsInfo;

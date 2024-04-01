@@ -21,7 +21,7 @@ package org.humanistika.oxygen.tei.authorizer.remote;
 
 import org.humanistika.oxygen.tei.authorizer.SuggestedAutocomplete;
 import org.humanistika.oxygen.tei.authorizer.configuration.beans.UploadInfo;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 import java.util.List;
 
@@ -40,7 +40,7 @@ public interface Client extends org.humanistika.oxygen.tei.completer.remote.Clie
         private final boolean success;
         @Nullable private final String message;
 
-        public SuggestionResponse(boolean success, String message) {
+        public SuggestionResponse(boolean success, @Nullable String message) {
             this.success = success;
             this.message = message;
         }

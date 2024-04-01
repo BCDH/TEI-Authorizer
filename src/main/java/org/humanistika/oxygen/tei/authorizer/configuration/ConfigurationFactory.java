@@ -36,7 +36,7 @@ public class ConfigurationFactory extends org.humanistika.oxygen.tei.completer.c
         super();
     }
 
-    public final static ConfigurationFactory getInstance() {
+    public static ConfigurationFactory getInstance() {
         return instance;
     }
 
