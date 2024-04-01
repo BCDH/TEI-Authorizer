@@ -1,5 +1,8 @@
 # TEI-Authorizer
-[![Build Status](https://github.com/BCDH/TEI-Authorizer/actions/workflows/ci.yml/badge.svg)](https://github.com/BCDH/TEI-Authorizer/actions/workflows/ci.yml) [![Java 8+](https://img.shields.io/badge/java-8+-4c7e9f.svg)](http://java.oracle.com) [![License GPL 2](https://img.shields.io/badge/license-GPL%202-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html) [![Download](https://img.shields.io/badge/download-version%201.0-ff69b4.svg)](http://search.maven.org/remotecontent?filepath=org/humanistika/oxygen/tei-authorizer/1.0/tei-authorizer-1.0-oxygen-plugin.jar)
+[![Build Status](https://github.com/BCDH/TEI-Authorizer/actions/workflows/ci.yml/badge.svg)](https://github.com/BCDH/TEI-Authorizer/actions/workflows/ci.yml)
+[![Java 8+](https://img.shields.io/badge/java-8+-4c7e9f.svg)](http://java.oracle.com)
+[![License GPL 2](https://img.shields.io/badge/license-GPL%202-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
+[![Download](https://img.shields.io/badge/download-version%201.0-ff69b4.svg)](http://search.maven.org/remotecontent?filepath=org/humanistika/oxygen/tei-authorizer/1.0/tei-authorizer-1.0-oxygen-plugin.jar)
 
 TEI Authorizer is a highly customizable plugin for [oXygen XML Editor](http://www.oxygenxml.com) which lets you: a) query remote authority files via HTTP and use retrieved data to autocomplete attribute values in your TEI documents; and b) define and implement forms to fill out new data and post it to your server via HTTP — all this from the comfort of your favorite XML editor. 
 
@@ -25,18 +28,18 @@ TODO img
 
 # Installation
 
-1. Download the precompiled binary of the TEI Authorizer from [here](http://search.maven.org/remotecontent?filepath=org/humanistika/oxygen/tei-authorizer/1.0/tei-authorizer-1.0-oxygen-plugin.jar) or [build from source](#building). TODO check link
+1. Download the precompiled binary of the TEI Authorizer from [here](http://search.maven.org/remotecontent?filepath=org/humanistika/oxygen/tei-authorizer/1.1/tei-authorizer-1.1-oxygen-plugin.jar) or [build from source](#building).
 
-2. Copy the file `tei-authorizer-1.0-oxygen-plugin.jar` to `$OXYGEN_HOME/frameworks/tei`.
+2. Copy the file `tei-authorizer-1.1-oxygen-plugin.jar` to `$OXYGEN_HOME/frameworks/tei`.
 
 	- The location of `$OXYGEN_HOME` will depend on where you have installed Oxygen XML Editor. The following are the known
 default locations for Oxygen:
 
   		* Mac OS X: `/Applications/oxygen`
 
-  		* Linux: `~/Oxygen XML Editor 18`, or if *sudo*: `/opt/Oxygen XML Editor 17`
+  		* Linux: `~/Oxygen XML Editor 20.1`, or if *sudo*: `/opt/Oxygen XML Editor 20.1`
 
-  		* Windows: `C:\Program Files\Oxygen XML Editor 18`
+  		* Windows: `C:\Program Files\Oxygen XML Editor 20.1`
 
 3. Create a [Configuration File](#configuring)
 
@@ -75,7 +78,7 @@ TODO change img
 
 # Configuring
 
-The TEI Authorizer uses an XML configuration file whoose syntax is documented in the XML Schema [config.xsd](https://raw.githubusercontent.com/BCDH/TEI-AUTHORIZER/master/src/main/resources/config.xsd). TODO check link
+The TEI Authorizer uses an XML configuration file whoose syntax is documented in the XML Schema [config.xsd](https://raw.githubusercontent.com/BCDH/TEI-AUTHORIZER/master/src/main/resources/config.xsd).
 
 The XML file must be named `config.xml` and placed in a folder named `.bcdh-tei-authorizer` in your user profile. The
 following are the known locations for the config file:
@@ -116,7 +119,7 @@ A sample `config.xml` which requests auto-completion suggestions for all `//w/@l
 
 TODO add config for forms
 
-If you wish to use a response transformation, these must be written in either XSLT (1.0 or 2.0) or JavaScript (<=1.7). The transformation file must be resolved relative to `config.xml`, that is to say that you should place your transforms in the same folder as `config.xml` (see above). See the [Response Transformations](#response-transformations) section for further details.
+If you wish to use a response transformation, these must be written in either XSLT (1.0 or 2.0) or JavaScript (<=1.8). The transformation file must be resolved relative to `config.xml`, that is to say that you should place your transforms in the same folder as `config.xml` (see above). See the [Response Transformations](#response-transformations) section for further details.
 
 ***NOTE*** Changes to the configuration require restarting Oxygen to be detected.
 
@@ -124,7 +127,7 @@ If you wish to use a response transformation, these must be written in either XS
 # Server Messages
 
 Servers are expected to respond to the plugin using an XML or JSON document, which contains the suggestions for
-auto-completion. The XML format is documented in [suggestions.xsd](https://raw.githubusercontent.com/BCDH/TEI-Authorizer/master/src/main/resources/suggestions.xsd). TODO check link
+auto-completion. The XML format is documented in [suggestions.xsd](https://raw.githubusercontent.com/BCDH/TEI-Authorizer/master/src/main/resources/suggestions.xsd).
 
 The JSON format is a direct conversion of the XML format.
 
@@ -177,7 +180,7 @@ If your server provides data in an XML format, then you may use either XSLT 1.0 
 
 ## JSON Transformation
 
-If your server provides data in a JSON format, then you may use JavaScript (<= 1.7) to transform that response. You must implement a JavaScript function named `transform`. The `transform` function must accept a single argument which is the JSON object from your server, and must subsequently return a JSON object in the format required by the TEI-Authorizer.
+If your server provides data in a JSON format, then you may use JavaScript (<= 1.8) to transform that response. You must implement a JavaScript function named `transform`. The `transform` function must accept a single argument which is the JSON object from your server, and must subsequently return a JSON object in the format required by the TEI-Authorizer.
 
 ### Example JSON transformation
 
@@ -226,7 +229,7 @@ oXygen utilises the log4j logging framework, and the TEI Authorizer plugin is al
 
 # <a name="building"></a> Building from Source Code
 
-* Requirements: Git, Apache Maven 3, Java JDK 7
+* Requirements: Git, Apache Maven 3, Java JDK 8
 
 ```bash
 $ git clone https://github.com/BCDH/TEI-Authorizer
@@ -234,7 +237,7 @@ $ cd TEI-Authorizer
 $ mvn package
 ```
 
-The compiled uber jar file can then be found at `target/tei-authorizer-1.0-SNAPSHOT-oxygen-plugin.jar`. TODO check link
+The compiled uber jar file can then be found at `target/tei-authorizer-1.0-SNAPSHOT-oxygen-plugin.jar`.
 
 
 # Acknowledgements
