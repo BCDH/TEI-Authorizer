@@ -260,6 +260,7 @@
                         <form>XML_STYLE</form>
                     </mapping>
                     <excludes>
+                        <exclude>.github/**</exclude>
                         <exclude>**/pom.xml</exclude>
                         <exclude>**/README.md</exclude>
                         <exclude>**/LICENSE</exclude>
