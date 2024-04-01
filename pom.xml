@@ -57,10 +57,10 @@
         <jaxb2-basics.version>0.13.1</jaxb2-basics.version>
         <eclipse.persistence.version>2.7.10</eclipse.persistence.version>
         <junit.jupiter.version>5.9.3</junit.jupiter.version>
-        <project.build.source>1.8</project.build.source>
-        <project.build.target>1.8</project.build.target>
+        <project.build.source>11</project.build.source>
+        <project.build.target>11</project.build.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <enforce.release.jdk-version>[1.8]</enforce.release.jdk-version>
+        <enforce.release.jdk-version>(11,17)</enforce.release.jdk-version>
     </properties>
 
     <dependencies>
@@ -74,6 +74,12 @@
             <artifactId>oxygen</artifactId>
             <version>${oxygen.sdk.version}</version>
             <scope>provided</scope>  <!-- provided by Oxygen -->
+        </dependency>
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>2.3.3</version>
+            <scope>provided</scope> <!-- provided by Oxygen -->
         </dependency>
         <dependency>
             <groupId>com.sun.xml.bind</groupId>

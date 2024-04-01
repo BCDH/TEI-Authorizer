@@ -1,6 +1,6 @@
 # TEI-Authorizer
 [![Build Status](https://github.com/BCDH/TEI-Authorizer/actions/workflows/ci.yml/badge.svg)](https://github.com/BCDH/TEI-Authorizer/actions/workflows/ci.yml)
-[![Java 8+](https://img.shields.io/badge/java-8+-4c7e9f.svg)](http://java.oracle.com)
+[![Java 11+](https://img.shields.io/badge/java-11+-4c7e9f.svg)](http://java.oracle.com)
 [![License GPL 2](https://img.shields.io/badge/license-GPL%202-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 [![Download](https://img.shields.io/badge/download-version%201.0-ff69b4.svg)](http://search.maven.org/remotecontent?filepath=org/humanistika/oxygen/tei-authorizer/1.0/tei-authorizer-1.0-oxygen-plugin.jar)
 
@@ -229,7 +229,7 @@ oXygen utilises the log4j logging framework, and the TEI Authorizer plugin is al
 
 # <a name="building"></a> Building from Source Code
 
-* Requirements: Git, Apache Maven 3, Java JDK 8
+* Requirements: Git, Apache Maven 3, Java JDK 11
 
 ```bash
 $ git clone https://github.com/BCDH/TEI-Authorizer
