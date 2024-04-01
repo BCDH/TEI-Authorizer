@@ -73,20 +73,6 @@
             <groupId>com.oxygenxml</groupId>
             <artifactId>oxygen</artifactId>
             <version>${oxygen.sdk.version}</version>
-            <scope>provided</scope>
-            <!-- Exclusion only needed if artifactId is "oxygen-sdk" -->
-            <!-- We use a newer version of Rhino, we avoid conflicts via the Maven Shade plugin (see below) -->
-            <!-- exclusions>
-                <exclusion>
-                    <groupId>rhino</groupId>
-                    <artifactId>js</artifactId>
-                </exclusion>
-            </exclusions -->
-        </dependency>
-        <dependency>
-            <groupId>jakarta.xml.bind</groupId>
-            <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>2.3.3</version>
             <scope>provided</scope>  <!-- provided by Oxygen -->
         </dependency>
         <dependency>
@@ -413,13 +399,6 @@
                         <configuration>
                             <shadedArtifactAttached>true</shadedArtifactAttached>
                             <shadedClassifierName>oxygen-plugin</shadedClassifierName>
-                            <relocations>
-                                <relocation>
-                                    <!-- Oxygen has an older version of Rhino so we relocate our newer version to a different package -->
-                                    <pattern>org.mozilla.javascript</pattern>
-                                    <shadedPattern>org.humanistika.org.mozilla.javascript.internal</shadedPattern>
-                                </relocation>
-                            </relocations>
                             <artifactSet>
                                 <excludes>
                                     <!-- Oxygen already ships with a version of these, so we needn't package them as well -->
