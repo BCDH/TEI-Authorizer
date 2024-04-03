@@ -22,6 +22,8 @@ package org.humanistika.oxygen.tei.authorizer.configuration.beans;
 import org.humanistika.oxygen.tei.completer.configuration.beans.Dependent;
 import org.humanistika.oxygen.tei.completer.configuration.beans.RequestInfo;
 import org.humanistika.oxygen.tei.completer.configuration.beans.ResponseAction;
+import org.humanistika.oxygen.tei.completer.configuration.beans.Selection;
+
 import javax.annotation.Nullable;
 
 import java.util.Map;
@@ -34,7 +36,7 @@ public class AutoComplete extends org.humanistika.oxygen.tei.completer.configura
     @Nullable
     private final UploadInfo uploadInfo;
 
-    public AutoComplete(final Map<String, String> namespaceBindings, final String context, final String attribute, final Dependent dependent, final String selection, final RequestInfo requestInfo, final ResponseAction responseAction, @Nullable final UploadInfo uploadInfo) {
+    public AutoComplete(final Map<String, String> namespaceBindings, final String context, final String attribute, final Dependent dependent, final Selection selection, final RequestInfo requestInfo, final ResponseAction responseAction, @Nullable final UploadInfo uploadInfo) {
         super(namespaceBindings, context, attribute, dependent, selection, requestInfo, responseAction);
         this.uploadInfo = uploadInfo;
     }

@@ -97,7 +97,7 @@ public class TeiAuthorizer extends TeiCompleter {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected Configuration getConfiguration() {
+    public Configuration getConfiguration() {
         if(configuration == null) {
             synchronized(this) {
                 if(configuration == null) {

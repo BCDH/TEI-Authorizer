@@ -25,11 +25,14 @@ import org.humanistika.oxygen.tei.authorizer.configuration.Configuration;
 import org.humanistika.oxygen.tei.authorizer.configuration.beans.BodyInfo;
 import org.humanistika.oxygen.tei.authorizer.configuration.beans.UploadInfo;
 import org.humanistika.oxygen.tei.authorizer.configuration.beans.UserFieldInfo;
+
+import javax.annotation.Nullable;
+
 import org.humanistika.oxygen.tei.completer.configuration.beans.Authentication;
 import org.humanistika.oxygen.tei.completer.configuration.beans.Dependent;
 import org.humanistika.oxygen.tei.completer.configuration.beans.RequestInfo;
 import org.humanistika.oxygen.tei.completer.configuration.beans.ResponseAction;
-import javax.annotation.Nullable;
+import org.humanistika.oxygen.tei.completer.configuration.beans.Selection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -97,8 +100,19 @@ public class XmlConfiguration extends org.humanistika.oxygen.tei.completer.confi
                 dependent = null;
             } else {
                 dependent = new Dependent(
-                        autoComplete.getDependent().getDefault(),
-                        autoComplete.getDependent().getValue()
+                    autoComplete.getDependent().getDefault(),
+                    autoComplete.getDependent().getValue(),
+                    autoComplete.getDependent().getLabel()
+                );
+            }
+
+            final Selection selection;
+            if(autoComplete.getSelection() == null) {
+                selection = null;
+            } else {
+                selection = new Selection(
+                    autoComplete.getSelection().getValue(),
+                    autoComplete.getSelection().getLabel()
                 );
             }
 
@@ -167,7 +181,7 @@ public class XmlConfiguration extends org.humanistika.oxygen.tei.completer.confi
                     autoComplete.getContext(),
                     autoComplete.getAttribute(),
                     dependent,
-                    autoComplete.getSelection(),
+                    selection,
                     requestInfo,
                     responseAction,
                     uploadInfo
