@@ -2,7 +2,7 @@
 [![Build Status](https://github.com/BCDH/TEI-Authorizer/actions/workflows/ci.yml/badge.svg)](https://github.com/BCDH/TEI-Authorizer/actions/workflows/ci.yml)
 [![Java 11+](https://img.shields.io/badge/java-11+-4c7e9f.svg)](http://java.oracle.com)
 [![License GPL 2](https://img.shields.io/badge/license-GPL%202-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
-[![Download](https://img.shields.io/badge/download-version%201.0-ff69b4.svg)](http://search.maven.org/remotecontent?filepath=org/humanistika/oxygen/tei-authorizer/1.0/tei-authorizer-1.0-oxygen-plugin.jar)
+[![Download](https://img.shields.io/badge/download-version%201.1.0-ff69b4.svg)](http://search.maven.org/remotecontent?filepath=org/humanistika/oxygen/tei-authorizer/1.1.0/tei-authorizer-1.1.0-oxygen-plugin.jar)
 
 TEI Authorizer is a highly customizable plugin for [oXygen XML Editor](http://www.oxygenxml.com) which lets you: a) query remote authority files via HTTP and use retrieved data to autocomplete attribute values in your TEI documents; and b) define and implement forms to fill out new data and post it to your server via HTTP — all this from the comfort of your favorite XML editor. 
 
@@ -59,7 +59,7 @@ TODO change img
 
 9. Select the *Classpath* tab, and then click on the `+` button under the list of paths.
 
-10. In the dialog box *Add resources to the classpath*, enter the following text `${framework}/tei-authorizer-1.0-oxygen-plugin.jar`, and then click the *OK* button.
+10. In the dialog box *Add resources to the classpath*, enter the following text `${framework}/tei-authorizer-1.1.0-oxygen-plugin.jar`, and then click the *OK* button.
 
 TODO change img
 
@@ -237,7 +237,7 @@ $ cd TEI-Authorizer
 $ mvn package
 ```
 
-The compiled uber jar file can then be found at `target/tei-authorizer-1.0-SNAPSHOT-oxygen-plugin.jar`.
+The compiled uber jar file can then be found at `target/tei-authorizer-1.1.1-SNAPSHOT-oxygen-plugin.jar`.
 
 
 # Acknowledgements
