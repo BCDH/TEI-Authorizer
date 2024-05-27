@@ -53,7 +53,7 @@ default locations for Oxygen:
 
 TODO change img
 
-   ![alt text](https://raw.githubusercontent.com/BCDH/TEI-Completer/master/doc/images/oxygen-document-type-associations-tei-p5.jpg "Oxygen Document Type Associations")
+   ![alt text](https://raw.githubusercontent.com/BCDH/TEI-Completer/main/doc/images/oxygen-document-type-associations-tei-p5.jpg "Oxygen Document Type Associations")
 
 8. Click the *Edit* button under the list of Document Type Associations
 
@@ -63,7 +63,7 @@ TODO change img
 
 TODO change img
 
-   ![alt text](https://raw.githubusercontent.com/BCDH/TEI-Completer/master/doc/images/oxygen-edit-tei-p5-document-type-association.jpg "Editing the TEI P5 framework classpath")
+   ![alt text](https://raw.githubusercontent.com/BCDH/TEI-Completer/main/doc/images/oxygen-edit-tei-p5-document-type-association.jpg "Editing the TEI P5 framework classpath")
 
 11. Select the *Extensions* tab, and then click the *Choose* button beside the entry for *Content completion handler*.
 
@@ -71,14 +71,14 @@ TODO change img
 
 TODO change img
 
-	![alt text](https://raw.githubusercontent.com/BCDH/TEI-Completer/master/doc/images/oxygen-edit-tei-p5-content-completion-handler.jpg "Editing the TEI P5 Content completion handler")
+	![alt text](https://raw.githubusercontent.com/BCDH/TEI-Completer/main/doc/images/oxygen-edit-tei-p5-content-completion-handler.jpg "Editing the TEI P5 Content completion handler")
 
 13. Click the *OK* button to leave the TEI P5 Document Type association dialog, click the *OK* button again to leave the Oxygen Preferences dialog.
 
 
 # Configuring
 
-The TEI Authorizer uses an XML configuration file whoose syntax is documented in the XML Schema [config.xsd](https://raw.githubusercontent.com/BCDH/TEI-AUTHORIZER/master/src/main/resources/config.xsd).
+The TEI Authorizer uses an XML configuration file whoose syntax is documented in the XML Schema [config.xsd](https://raw.githubusercontent.com/BCDH/TEI-Authorizer/main/src/main/resources/config.xsd).
 
 The XML file must be named `config.xml` and placed in a folder named `.bcdh-tei-authorizer` in your user profile. The
 following are the known locations for the config file:
@@ -127,7 +127,7 @@ If you wish to use a response transformation, these must be written in either XS
 # Server Messages
 
 Servers are expected to respond to the plugin using an XML or JSON document, which contains the suggestions for
-auto-completion. The XML format is documented in [suggestions.xsd](https://raw.githubusercontent.com/BCDH/TEI-Authorizer/master/src/main/resources/suggestions.xsd).
+auto-completion. The XML format is documented in [suggestions.xsd](https://raw.githubusercontent.com/BCDH/TEI-Authorizer/main/src/main/resources/suggestions.xsd).
 
 The JSON format is a direct conversion of the XML format.
 
