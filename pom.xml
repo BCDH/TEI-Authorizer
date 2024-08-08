@@ -9,7 +9,7 @@
 
     <groupId>org.humanistika.oxygen</groupId>
     <artifactId>tei-authorizer</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.2.0</version>
 
     <name>TEI Authorizer</name>
     <description>An Oxygen XML Editor plugin for customizable attribute and value completion and/or creation for TEI P5 documents</description>
@@ -47,7 +47,7 @@
         <connection>scm:git:https://github.com/BCDH/TEI-Authorizer.git</connection>
         <developerConnection>scm:git:https://github.com/BCDH/TEI-Authorizer.git</developerConnection>
         <url>scm:git:https://github.com/BCDH/TEI-Authorizer.git</url>
-      <tag>HEAD</tag>
+      <tag>1.2.0</tag>
   </scm>
 
     <properties>
